@@ -29,6 +29,7 @@ app.get("/", (req, res) =>{
 app.get("/Student_Signup", (req, res) =>{
     res.render("Student_Signup");
 });
+
 app.get("/Teacher_signup", (req, res) =>{
     res.render("Teacher_signup");
 });
