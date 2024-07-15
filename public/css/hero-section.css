@@ -1,0 +1,102 @@
+*{
+    font-family: "Poppins";
+    box-sizing: border-box;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+}
+.navelements{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #131313;
+    color: white;
+    gap: 20px;
+    margin: 15px;
+    padding: 7px;
+    width: 400px;
+    border-radius: 20px;
+    margin-left: -70px;
+    font-weight: 400;
+    font-size: 16px;
+
+}
+
+#logo{
+    display:flex;
+    margin: 15px;
+}
+#img{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.btn1{
+    font-size: 15px;
+    margin: 20px 0px 0px 0px;
+    width: 212px;
+    height: 51px;
+    background-color: #131313;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: border-radius 0.4s ease; /* Smooth transition for border-radius */
+}
+.btn1:hover{
+    border-radius: 0;
+}
+.btn2 {
+    font-size: 15px;
+    margin: 20px 0px 0px 0px;
+    width: 212px;
+    height: 51px;
+    background-color: #ffffff;
+    color: #131313;
+    font-weight: 500;    
+    border: none;
+    cursor: pointer;
+    transition: font-size 0.4s ease, border-radius 0.4s ease; /* Smooth transition for font-size and border-radius */
+}
+
+.btn2:hover {
+    font-size: 18px;
+}
+@media only screen and (max-width: 600px) {
+    .navelements {
+      width: 270px;
+      gap: 15px;
+      font-size: 15px;
+    }
+    #img{
+        height: 250px;
+        margin: 70px;
+    }
+    .btns{
+        padding: 10px;
+    }
+  }
+  @media only screen and (max-width: 450px) {
+    .navelements {
+        margin-left: 0px;
+
+    }
+  }

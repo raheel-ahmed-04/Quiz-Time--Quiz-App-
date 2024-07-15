@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+    box-sizing: border-box;
+}
+.body{
+    height: 100vh;
+}
+
+.navbar{
+    margin: 10px;
+}
+#logo{
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+#logo button{
+    padding: 5px 50px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: #0E84FF;
+    cursor: pointer;
+    transition: border-radius 0.4s ease;
+}
+#logo button:hover{
+    border-radius: 0;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+.container h1{
+    margin-top: 10px;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.highlighted{
+    color: #0E84FF;
+}
+form{
+    margin: 20px 10px 10px 10px;
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    font-size: 16px; 
+    font-weight: 500;
+}
+
+.Email, .Password, .FullName{
+    margin: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    font-size: 15px;
+    
+}
+.QuizName, .SubjectName, .TotalQuestions{
+    margin: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    font-size: 15px;
+    
+}
+
+form input {
+    margin: 0.5rem;
+    padding: 10px;
+    width: 350px;
+    height: 40px;
+    border: 1px solid #B2B2B2;
+    border-radius: 8px;
+}
+
+form input:focus{
+    border-color: #0E84FF;
+    outline: none;
+}
+.submit_btn{
+    margin-top: 35px;
+    font-size: 15px;
+    width: 212px;
+    height: 51px;
+    background-color: #131313;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: border-radius 0.4s ease; /* Smooth transition for border-radius */
+}
+.submit_btn:hover{
+    border-radius: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    form input{
+        width:300px ;
+    }
+}
+

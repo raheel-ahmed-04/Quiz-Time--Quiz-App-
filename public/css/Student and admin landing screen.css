@@ -1,0 +1,84 @@
+*{
+    font-family: "Poppins";
+    box-sizing: border-box;
+    margin: 0px;
+}
+.main{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* align-items: center; */
+    justify-content: center;
+    text-align: center;
+}
+#logo{
+    display:flex;
+    margin: 15px;
+}
+.main h1{
+    margin-bottom: -10px;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+.main h1 span{
+    color:#0E84FF ;
+}
+.main p{
+    margin-top: 30px;
+    margin-bottom: -.025px;
+    font-size: 15px;
+    font-weight: 500;
+}
+.main input{
+    margin-top: 9px;
+    padding: 10px;
+    width: 350px;
+    height: 40px;
+    border:1px solid#B2B2B2 ;
+    border-radius: 8px;
+}
+.main input:focus{
+    border-color: #0E84FF;
+    outline: none;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+#btn1{
+    font-size: 15px;
+    width: 212px;
+    height: 51px;
+    background-color: #131313;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: border-radius 0.4s ease; /* Smooth transition for border-radius */
+}
+#btn1:hover{
+    border-radius: 0;
+}
+#btn2 {
+    font-size: 15px;
+    width: 212px;
+    height: 51px;
+    background-color: #ffffff;
+    color: #131313;
+    font-weight: 500;    
+    border: none;
+    cursor: pointer;
+    transition: font-size 0.4s ease, border-radius 0.4s ease; /* Smooth transition for font-size and border-radius */
+}
+
+#btn2:hover {
+    font-size: 18px;
+}
+@media only screen and (max-width: 600px) {
+    .main input{
+        width:300px ;
+    }
+  }
