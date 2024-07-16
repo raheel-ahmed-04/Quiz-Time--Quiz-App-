@@ -44,6 +44,14 @@ app.get("/Alreadyaccadmin", (req, res) =>{
 
     res.render("Alreadyaccadmin");    
 });
+app.get("/Student_Login", (req, res) =>{
+
+    res.render("Student_Login");    
+});
+app.get("/Teacher_login", (req, res) =>{
+
+    res.render("Teacher_login");    
+});
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) =>{
