@@ -52,6 +52,14 @@ app.get("/Teacher_login", (req, res) =>{
 
     res.render("Teacher_login");    
 });
+app.get("/Student_Landingscreen", (req, res) =>{
+
+    res.render("Student_Landingscreen");    
+});
+app.get("/Teacher_Landingscreen", (req, res) =>{
+
+    res.render("Teacher_Landingscreen");    
+});
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) =>{
@@ -66,7 +74,7 @@ app.post("/Student_Signup", async (req, res) =>{
         })
 
         const registered = await registerStudent.save();
-        res.status(201).render("index");
+        res.status(201).render("Student_Landingscreen");
 
     } catch (error) {
         res.status(400).send(error);
@@ -109,6 +117,7 @@ app.post("/Teacher_signup", async (req, res) =>{
             email :req.body.email,
             password : hashedPassword
         })
+
         const registered = await registerTeacher.save();
         res.status(201).render("Admin_landing_screen");
 
