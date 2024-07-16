@@ -93,7 +93,7 @@ app.post("/Teacher_signup", async (req, res) =>{
         })
 
         const registered = await registerTeacher.save();
-        res.status(201).render("Teacher_Landingscreen");
+        res.status(201).render("index");
 
     } catch (error) {
         res.status(400).send(error);
@@ -117,9 +117,12 @@ app.post("/Student_Login", async (req, res) => {
         if (!validPassword) {
             return res.status(400).send('Invalid password');
         }
-        else{
-            res.status(201).render("Student_Landingscreen");
-        }
+        
+        // Create a token using jsonwebtoken
+        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+        
+        // Send the token to the client
+        res.header('auth-token', token).send({ message: 'Logged in successfully', token: token });
         
     } catch (error) {
         res.status(400).send(error);
