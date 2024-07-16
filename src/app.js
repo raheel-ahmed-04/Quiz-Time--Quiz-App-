@@ -90,11 +90,7 @@ app.post("/Student_Login", async (req, res) => {
             return res.status(400).send('Invalid password');
         }
         else{
-            // Create a token using jsonwebtoken
-            const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-            
-            // Send the token to the client
-            res.header('auth-token', token).send({ message: 'Logged in successfully', token: token });
+            res.status(201).render("index");
         }
         
     } catch (error) {
@@ -107,14 +103,40 @@ app.post("/Teacher_signup", async (req, res) =>{
     try {
         // res.send(req.body.username);
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-                
+        
         const registerTeacher = new Teacher({
+            username : req.body.username,
             email :req.body.email,
             password : hashedPassword
         })
         const registered = await registerTeacher.save();
         res.status(201).render("index");
 
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//Teacher Login
+app.post("/Teacher_login", async (req, res) => {
+    try {
+        // Retrieve user data from the database
+        const user = await Teacher.findOne({ email: req.body.email });
+        
+        if (!user) {
+            return res.status(400).send('User not found');
+        }
+
+        // Compare the hashed password with the one provided in the request
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        
+        if (!validPassword) {
+            return res.status(400).send('Invalid password');
+        }
+        else{
+            res.status(201).render("index");
+        }
+        
     } catch (error) {
         res.status(400).send(error);
     }
