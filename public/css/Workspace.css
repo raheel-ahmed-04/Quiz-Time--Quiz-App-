@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+    box-sizing: border-box;
+}
+.navbar{
+    margin: 10px;
+}
+#logo{
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.main{
+    border-top: 1px solid rgb(234, 234, 234);
+}
+.main .heading1{
+    color: #212121;
+    margin: 30px 100px;
+}
+.main .heading2{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: #212121;    
+    
+}
+
+.main span{
+    color: #0E84FF;
+}
+.main_upper{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;    margin: 0px 100px 100px 100px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0px 100px 30px 100px;
+}
+.results{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;    margin: 0px 100px 100px 100px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0px 100px 30px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Resultupper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10vw;
+    margin: 10px 0px;
+    padding: 10px;
+    border: 2px solid #0E84FF;
+}
+#logo button{
+    padding: 5px 50px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: #0E84FF;
+    cursor: pointer;
+    transition: border-radius 0.4s ease;
+}
+#logo button:hover{
+    border-radius: 0px;
+}
+.main .heading2 button{
+    height:30px;
+    width: 30px;
+    border-radius: 100%;
+    border: none;
+    font-size: 20px;
+    color: white;
+    background-color: #0E84FF;
+    cursor: pointer;
+    transition: border-radius 0.4s ease;
+}
