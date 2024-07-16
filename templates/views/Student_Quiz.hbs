@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Quiz.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Create a Quiz</title>
+</head>
+<body>
+    <div class="navbar">
+        <div id="logo">
+            <img src="images/Frame 257.svg" alt="">
+        </div>
+    </div>
+    <div class="container">
+        <div class="heading">
+            <h1><span class="highlighted">Quiz</span> Name</h1>
+        </div>
+        <div class="QuestionHeading">
+            <p>(Question <span id="QuestionNumber">1/15</span>)</p>
+        </div>
+
+        <form action="/create_quiz" method="post">
+            <div class="Question-Container">
+              <p>Question</p>
+              <div class="Question" contenteditable="true">
+                Lorem ipsum dolor sit amet. Sit quia impedit At beatae neque et dolorem voluptas et labore fuga sed molestiae voluptatem qui quod animi ut quasi distinctio?
+              </div>
+            </div>
+
+            <div id="option-radio-container">
+
+                <div class="options-radio">
+                    <label>
+                        <input type="radio" name="option" value="option1" required>
+                        <p id="option1">Option 1</p>
+                        <div></div>
+                    </label>
+                </div>
+                <div class="options-radio">
+                    <label>
+                        <input type="radio" name="option" value="option2" required>
+                        <p id="option2">Option 2</p>
+                        <div></div>
+                    </label>
+                </div>
+                <div class="options-radio">
+                    <label>
+                        <input type="radio" name="option" value="option3" required>
+                        <p id="option3">Option 3</p>
+                        <div></div>
+                    </label>
+                </div>
+                <div class="options-radio">
+                    <label>
+                        <input type="radio" name="option" value="option4" required>
+                        <p id="option4">Option 4</p>
+                        <div></div>
+                    </label>
+                </div>
+                
+            </div>
+            <button class="submit_btn">Next</button>
+          </form>
+        </div>
+    </div>
+
+</body>
+</html>
