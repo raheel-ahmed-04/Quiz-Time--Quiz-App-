@@ -1,0 +1,135 @@
+*{
+    font-family: "Poppins";
+    box-sizing: border-box;
+    margin: 0px;
+}
+.main{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* align-items: center; */
+    justify-content: center;
+    text-align: center;
+}
+#logo{
+    display:flex;
+    margin: 15px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+.container h1{
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.highlighted{
+    color: #0E84FF;
+}
+.QuestionHeading{
+    margin-top: 20px;
+    font-weight: 600;
+}
+form{
+    margin: 5px 10px 10px 10px;
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    font-size: 16px; 
+    font-weight: 500;
+}
+.options, .Question-Container{
+    margin: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    font-size: 15px;
+}
+.Question-Container{
+    width: 50vw;
+}
+#option-container{
+    width: 60vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+#option-radio-container{
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.options-radio{
+    width: 235px;
+    border: 1px solid #B2B2B2;
+    border-radius: 8px;
+    margin: 10px;
+    transition: border-color 0.3s ease;
+}
+.options-radio:hover{
+    border-color: #0E84FF;
+    outline: none;
+}
+.options-radio label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Question{
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #B2B2B2;
+    border-radius: 8px;
+}
+form input {
+    margin: 0.5rem;
+    padding: 10px;
+    width: 235px;
+    height: 40px;
+    border: 1px solid #B2B2B2;
+    border-radius: 8px;
+}
+form #option-radio-container .options-radio label input{
+    width: 20px;
+}
+
+form input:focus, form .Question:focus{
+    border-color: #0E84FF;
+    outline: none;
+}
+
+
+.submit_btn{
+    margin-top: 35px;
+    font-size: 15px;
+    width: 212px;
+    height: 51px;
+    background-color: #131313;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: border-radius 0.4s ease; /* Smooth transition for border-radius */
+}
+.submit_btn:hover{
+    border-radius: 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    form input{
+        width:200px ;
+    }
+}

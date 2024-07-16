@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/Quiz.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Create a Quiz</title>
+</head>
+<body>
+    <div class="navbar">
+        <div id="logo">
+            <img src="images/Frame 257.svg" alt="">
+        </div>
+    </div>
+    <div class="container">
+        <div class="heading">
+            <h1><span class="highlighted">Create</span> a Quiz</h1>
+        </div>
+        <div class="QuestionHeading">
+            <p>(Question <span id="QuestionNumber">1/15</span>)</p>
+        </div>
+
+        <form action="/create_quiz" method="post">
+            <div class="Question-Container">
+              <p>Question</p>
+              <div class="Question" contenteditable="true">
+                Lorem ipsum dolor sit amet. Sit quia impedit At beatae neque et dolorem voluptas et labore fuga sed molestiae voluptatem qui quod animi ut quasi distinctio?
+              </div>
+            </div>
+
+            <div id="option-container">
+
+                <div class="options">
+                    <p>Option 1</p>
+                    <input type="text" required="text" name="option1" value="" />
+                </div>
+                <div class="options">
+                    <p>Option 2</p>
+                    <input type="email" required="text" name="option2" value="" />
+                </div>
+                <div class="options">
+                    <p>Option 3</p>
+                    <input type="password" required="text" name="option3" value="" />
+                </div>
+                <div class="options">
+                    <p>Option 4</p>
+                    <input type="text" required="text" name="option4" value="" />
+                </div>
+                <div class="options">
+                    <p>Correct Option</p>
+                    <input type="text" required="text" name="correct_option" value="" />
+                </div>
+            </div>
+            <button class="submit_btn">Next</button>
+          </form>
+        </div>
+    </div>
+
+</body>
+</html>
