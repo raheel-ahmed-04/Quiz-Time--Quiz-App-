@@ -84,10 +84,6 @@ app.post("/Teacher_signup", async (req, res) =>{
     }
 });
 
-app.listen(port, ()=>{
-    console.log(`server is running at port no ${port}`);
-});
-
 
 app.post("/Student_Login", async (req, res) => {
     try {
@@ -104,14 +100,18 @@ app.post("/Student_Login", async (req, res) => {
         if (!validPassword) {
             return res.status(400).send('Invalid password');
         }
-
+        
         // Create a token using jsonwebtoken
         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-
+        
         // Send the token to the client
         res.header('auth-token', token).send({ message: 'Logged in successfully', token: token });
-
+        
     } catch (error) {
         res.status(400).send(error);
     }
+});
+
+app.listen(port, ()=>{
+    console.log(`server is running at port no ${port}`);
 });
