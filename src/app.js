@@ -110,7 +110,7 @@ app.post("/Teacher_signup", async (req, res) =>{
             password : hashedPassword
         })
         const registered = await registerTeacher.save();
-        res.status(201).render("index");
+        res.status(201).render("Admin_landing_screen");
 
     } catch (error) {
         res.status(400).send(error);
@@ -134,7 +134,7 @@ app.post("/Teacher_login", async (req, res) => {
             return res.status(400).send('Invalid password');
         }
         else{
-            res.status(201).render("index");
+            res.status(201).render("Admin_landing_screen");
         }
         
     } catch (error) {
