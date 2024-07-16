@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const hbs = require("hbs");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(express.json());
@@ -25,7 +26,6 @@ hbs.registerPartials(partials_path);
 app.get("/", (req, res) =>{
     res.render("hero-section");
 });
-
 app.get("/Student_Signup", (req, res) =>{
     res.render("Student_Signup");
 });
@@ -34,6 +34,14 @@ app.get("/Teacher_signup", (req, res) =>{
 });
 app.get("/Admin_landing_screen", (req, res) =>{
     res.render("Admin_landing_screen");
+});
+app.get("/Alreadyacc", (req, res) =>{
+
+    res.render("Alreadyacc");    
+});
+app.get("/Alreadyaccadmin", (req, res) =>{
+
+    res.render("Alreadyaccadmin");    
 });
 
 //create new user in db
@@ -58,4 +66,32 @@ app.post("/Student_Signup", async (req, res) =>{
 
 app.listen(port, ()=>{
     console.log(`server is running at port no ${port}`);
+});
+
+
+app.post("/Student_Login", async (req, res) => {
+    try {
+        // Retrieve user data from the database
+        const user = await Register.findOne({ email: req.body.email });
+        
+        if (!user) {
+            return res.status(400).send('User not found');
+        }
+
+        // Compare the hashed password with the one provided in the request
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        
+        if (!validPassword) {
+            return res.status(400).send('Invalid password');
+        }
+
+        // Create a token using jsonwebtoken
+        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+
+        // Send the token to the client
+        res.header('auth-token', token).send({ message: 'Logged in successfully', token: token });
+
+    } catch (error) {
+        res.status(400).send(error);
+    }
 });
