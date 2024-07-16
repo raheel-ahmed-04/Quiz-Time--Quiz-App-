@@ -6,7 +6,12 @@ const StudentSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
+const TeacherSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true},
+})
 
 const Student = new mongoose.model("Student", StudentSchema);
+const Teacher = mongoose.model("Teacher", TeacherSchema);
 
-module.exports = Student;
+module.exports = { Student, Teacher };

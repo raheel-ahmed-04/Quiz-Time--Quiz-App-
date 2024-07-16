@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./db/conn");
-const Register = require("./models/registers")
+const { Student, Teacher } = require("./models/registers");
 
 const port = process.env.PORT || 4000;
 
@@ -43,13 +43,32 @@ app.post("/Student_Signup", async (req, res) =>{
         // res.send(req.body.username);
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
                 
-        const registerStudent = new Register({
+        const registerStudent = new Student({
             username : req.body.username,
             email :req.body.email,
             password : hashedPassword
         })
 
         const registered = await registerStudent.save();
+        res.status(201).render("index");
+
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//for teacher sign up
+app.post("/Teacher_signup", async (req, res) =>{
+    try {
+        // res.send(req.body.username);
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+                
+        const registerTeacher = new Teacher({
+            email :req.body.email,
+            password : hashedPassword
+        })
+
+        const registered = await registerTeacher.save();
         res.status(201).render("index");
 
     } catch (error) {
