@@ -44,6 +44,14 @@ app.get("/Alreadyaccadmin", (req, res) =>{
 
     res.render("Alreadyaccadmin");    
 });
+app.get("/Student_Login", (req, res) =>{
+
+    res.render("Student_Login");    
+});
+app.get("/Teacher_login", (req, res) =>{
+
+    res.render("Teacher_login");    
+});
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) =>{
@@ -88,7 +96,7 @@ app.post("/Teacher_signup", async (req, res) =>{
 app.post("/Student_Login", async (req, res) => {
     try {
         // Retrieve user data from the database
-        const user = await Register.findOne({ email: req.body.email });
+        const user = await Student.findOne({ email: req.body.email });
         
         if (!user) {
             return res.status(400).send('User not found');
