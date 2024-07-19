@@ -118,7 +118,6 @@ app.post("/Teacher_signup", async (req, res) => {
     res.status(400).send(error);
   }
 });
-
 //Teacher Login
 app.post("/Teacher_login", async (req, res) => {
   try {
@@ -144,7 +143,29 @@ app.post("/Teacher_login", async (req, res) => {
     res.status(400).send(error);
   }
 });
+// -----------------------------------------------------------------------------
+// Route to create a new quiz
+app.post("/quizzes", async (req, res) => {
+  try {
+    const quizData = req.body;
+    const quiz = new Quiz(quizData);
+    await quiz.save();
+    res.status(201).send(quiz);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
 
+// Route to get all quizzes
+app.get("/quizzes", async (req, res) => {
+  try {
+    const quizzes = await Quiz.find();
+    res.status(200).send(quizzes);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+// -----------------------------------------------------------------------------
 app.listen(port, () => {
   console.log(`server is running at port no ${port}`);
 });
