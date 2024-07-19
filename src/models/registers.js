@@ -17,7 +17,7 @@ const TeacherSchema = new mongoose.Schema({
 const quizSchema = new mongoose.Schema({
   name: String,
   subject: String,
-  questions: [questionSchema],
+  // questions: [questionSchema],
   totalquestion: Number,
   acquiredMarks: Number,
 });
