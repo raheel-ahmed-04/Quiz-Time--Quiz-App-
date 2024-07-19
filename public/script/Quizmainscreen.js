@@ -162,6 +162,9 @@ document.addEventListener("submit", (event) => {
     const form = document.querySelector("#quizForm");
 
     let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
+    // ------------------------------------------------------------------------
+    sendQuiz(quiz)
+    // ------------------------------------------------------------------------
     storeObjecttoLS(quiz);
     window.location.href = "http://127.0.0.1:5500/Quiz_Creation.html";
     console.log("new page");
@@ -321,3 +324,28 @@ function loadLastQuizFromLocalStorage() {
   }
   return null; // Return null if lastIndex is not a number or doesn't exist
 }
+
+// -----------------------------------------------------------------------------
+async function sendQuiz(quiz) {
+  try {
+    const response = await fetch('http://localhost:3000/quizzes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(quiz)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Success:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+// -----------------------------------------------------------------------------
+
+
