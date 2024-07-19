@@ -53,6 +53,9 @@ app.get("/Student_Landingscreen", (req, res) => {
 app.get("/Teacher_Landingscreen", (req, res) => {
   res.render("Teacher_Landingscreen");
 });
+app.get("/Create_a_quiz", (req, res) => {
+    res.render("Create_a_quiz");
+  });
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) => {

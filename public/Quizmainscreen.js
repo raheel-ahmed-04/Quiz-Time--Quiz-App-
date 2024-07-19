@@ -163,10 +163,13 @@ document.addEventListener("submit", (event) => {
 
     let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
     // ------------------------------------------------------------------------
-    sendQuiz(quiz)
+    sendQuiz(quiz);
+    if (sendQuiz(quiz)) {
+      alert("Quiz Added Successfully");
+    }
     // ------------------------------------------------------------------------
     storeObjecttoLS(quiz);
-    window.location.href = "http://127.0.0.1:5500/Quiz_Creation.html";
+    // window.location.href = "http://127.0.0.1:5500/Quiz_Creation.hbs";
     console.log("new page");
   }
   if (event.target.classList.contains("form2")) {
@@ -328,12 +331,12 @@ function loadLastQuizFromLocalStorage() {
 // -----------------------------------------------------------------------------
 async function sendQuiz(quiz) {
   try {
-    const response = await fetch('http://localhost:3000/quizzes', {
-      method: 'POST',
+    const response = await fetch("http://localhost:4000/quizzes", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(quiz)
+      body: JSON.stringify(quiz),
     });
 
     if (!response.ok) {
@@ -341,11 +344,9 @@ async function sendQuiz(quiz) {
     }
 
     const data = await response.json();
-    console.log('Success:', data);
+    console.log("Success:", data);
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
   }
 }
 // -----------------------------------------------------------------------------
-
-
