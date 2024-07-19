@@ -1,0 +1,192 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins";
+    box-sizing: border-box;
+}
+.navbar{
+    margin: 10px;
+}
+#logo{
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.main{
+    border-top: 1px solid rgb(234, 234, 234);
+}
+.main .heading1{
+    color: #212121;
+    margin: 30px 100px;
+}
+.main .heading2{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: #212121;    
+    
+}
+
+.main span{
+    color: #0E84FF;
+}
+.main_upper{
+    /* -------------------------------- */
+    display: flex;
+    flex-direction: column;
+    /* -------------------------------- */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;    margin: 0px 100px 100px 100px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0px 100px 30px 100px;
+}
+.results{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;  
+    padding: 20px;
+    /* ------------------------------- */
+    width: 650px;
+    align-self: center; 
+     /* ------------------------------- */
+
+    border-radius: 10px;
+    margin: 50px 10px 30px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Resultupper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;    
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 0px;
+    border: 2px solid #0E84FF;
+}
+.Resultupper p{
+    width: 120px;
+}
+.dynamicresult{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;    
+    gap: 10px;
+    margin-top: 10px;
+    padding: 10px 50px;
+}
+.dynamicresult p{
+    width: 120px;
+}
+#logo button{
+    padding: 5px 40px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    background-color: #0E84FF;
+    cursor: pointer;
+    transition: border-radius 0.4s ease;
+}
+#logo button:hover{
+    border-radius: 0px;
+}
+.AddQuiz{
+    height:30px;
+    width: 30px;
+    border-radius: 100%;
+    border: none;
+    font-size: 20px;
+    color: white;
+    background-color: #0E84FF;
+    cursor: pointer;
+    transition: border-radius 0.4s ease;
+}
+.dynamicquiz{
+    align-self: flex-start;
+    display: flex;
+    gap: 10px;
+    flex-direction: rows;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+.quizbox{
+    width: 315px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(226, 226, 226);
+    padding: 10px;
+    border-radius: 5px;
+}
+.quizname{
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+.subject{
+    font-size: 12px;
+    color: rgb(143, 143, 143);
+    margin-top: 10px;
+}
+    @media (max-width: 880px) {
+        .dynamicquiz{
+            align-self: center;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .main_upper{
+            box-shadow: none;  
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .results{
+            width: auto;
+            box-shadow:none;
+            padding: 0px;
+            border-radius: 10px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .Resultupper{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: center;    
+            gap: 0px;
+            margin-top: 10px;
+            padding: 10px 0px;
+            border: 2px solid #0E84FF;
+        }
+        .Resultupper p{
+            width: 80px;
+        }
+        .dynamicresult{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: center;    
+            gap: 0px;
+            margin-top: 10px;
+            padding: 10px 0px;
+        }
+        .dynamicresult p{
+            width: 80px;
+        }
+        .main .heading1{
+            margin: 35px 0px;
+        }
+        .main{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    }

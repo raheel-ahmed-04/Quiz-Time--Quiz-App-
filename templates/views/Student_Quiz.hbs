@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <title>Create a Quiz</title>
+    <title>Student Quiz</title>
 </head>
 <body>
     <div class="navbar">
@@ -21,13 +21,13 @@
             <h1><span class="highlighted">Quiz</span> Name</h1>
         </div>
         <div class="QuestionHeading">
-            <p>(Question <span id="QuestionNumber">1/15</span>)</p>
+            <p>(Question <span id="QuestionNumber">1</span>/<span id="totalQs">15</span>)</p>
         </div>
 
-        <form action="/create_quiz" method="post">
+        <form action="/create_quiz" method="post" class="form3">
             <div class="Question-Container">
               <p>Question</p>
-              <div class="Question" contenteditable="true">
+              <div class="Question">
                 Lorem ipsum dolor sit amet. Sit quia impedit At beatae neque et dolorem voluptas et labore fuga sed molestiae voluptatem qui quod animi ut quasi distinctio?
               </div>
             </div>
@@ -68,6 +68,7 @@
           </form>
         </div>
     </div>
+    <script src="Quizmainscreen.js"></script>
 
 </body>
 </html>
