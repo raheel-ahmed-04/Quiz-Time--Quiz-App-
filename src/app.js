@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./db/conn");
-const { Student, Teacher } = require("./models/registers");
+const { Student, Teacher, Quiz } = require("./models/registers");
 
 const port = process.env.PORT || 4000;
 
