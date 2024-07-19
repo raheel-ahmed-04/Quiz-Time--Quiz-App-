@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QuizTime - Quiz App</title>
-    <link rel="stylesheet" href="/public/css/Workspace.css" />
+    <link rel="stylesheet" href="Quizmainscreen.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
@@ -13,7 +13,7 @@
   <body>
     <div class="navbar">
       <div id="logo">
-        <img src="Frame 257.svg" alt="" />
+        <img src="images/Frame 257.svg" alt="" />
         <button>New Classroom</button>
     </div>
     </div>
@@ -22,23 +22,29 @@
       <div class="main_upper">
         <div class="heading2">
           <h1>Quizzes</h1>
-          <img src="Vector.svg" alt="">
-          <button>+</button>
+          <img src="images/Vector (1).svg" alt="">
+          <button class="AddQuiz" onclick="location.href='http://127.0.0.1:5500/Create_a_quiz.html'">+</button>
 
         </div>
-        <div class="dynamicquiz">dynamic</div>
+        <div class="dynamicquiz">
+            <div class="quizbox">
+                <img src="images/Frame 251.svg" alt="">
+                <div class="quizname">Quiz Name</div>
+                <div class="subject">My classroom</div>
+            </div>
       </div>
+
+
       <div class="results">
         <h1>Results</h1>
         <div class="Resultupper">
             <p>Sr.</p>
-            <p>QuizName</p>
-            <p>Total Marks</p>
-            <p>Obtained Marks</p>
+            <p>Quiz</p>
+            <p>Total</p>
+            <p>Obtained</p>
         </div>
-        <div class="dynamicresult">dynamic</div>
       </div>
     </div>
-    
+    <script src="Quizmainscreen.js"></script>
   </body>
 </html>
