@@ -169,14 +169,15 @@ app.post("/quizzes", async (req, res) => {
 });
 
 // // Route to get all quizzes
-// app.get("/quizzes", async (req, res) => {
-//   try {
-//     const quizzes = await Quiz.find();
-//     res.status(200).send(quizzes);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
+app.get("/quizzes", async (req, res) => {
+  try {
+    const quizzes = await Quiz.find();
+    res.status(200).json(quizzes);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving quizzes", error: error.message });
+  }
+});
+
 // -----------------------------------------------------------------------------
 app.listen(port, () => {
   console.log(`server is running at port no ${port}`);

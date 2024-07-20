@@ -68,7 +68,7 @@ if (!localStorage.getItem("lastIndex")) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.pathname === "/Quiz_Creation.html") {
+  if (window.location.pathname === "/Quiz_Creation") {
     // Load the last quiz from local storage
     let quiz = loadLastQuizFromLocalStorage();
     if (quiz) {
@@ -78,51 +78,52 @@ document.addEventListener("DOMContentLoaded", () => {
       QuestionNumberText.textContent = Q_no;
     }
   }
-  if (window.location.pathname === "/Quizmainscreen.html") {
+  if (window.location.pathname === "/Quizmainscreen") {
     // Load the last quiz from local storage
+    fetchQuiz();
 
-    let q = loadLastQuizFromLocalStorage();
+    // let q = loadLastQuizFromLocalStorage();
 
-    const newDiv = document.createElement("div");
-    const newDivquizname = document.createElement("div");
-    const newDivsubjectname = document.createElement("div");
-    const img = document.createElement("img");
+    // const newDiv = document.createElement("div");
+    // const newDivquizname = document.createElement("div");
+    // const newDivsubjectname = document.createElement("div");
+    // const img = document.createElement("img");
 
-    // Set attributes and content
-    img.src = "images/Frame 251.svg";
-    newDiv.classList.add("quizbox");
-    newDivquizname.classList.add("quizname");
-    newDivsubjectname.classList.add("subject");
-    newDivquizname.textContent = q.name; // Assuming quiz.name contains the quiz name
-    newDivsubjectname.textContent = q.subject; // Assuming quiz.subject contains the subject name
+    // // Set attributes and content
+    // img.src = "images/Frame 251.svg";
+    // newDiv.classList.add("quizbox");
+    // newDivquizname.classList.add("quizname");
+    // newDivsubjectname.classList.add("subject");
+    // newDivquizname.textContent = q.name; // Assuming quiz.name contains the quiz name
+    // newDivsubjectname.textContent = q.subject; // Assuming quiz.subject contains the subject name
 
-    // Append the children to the newDiv
-    newDiv.append(img);
-    newDiv.append(newDivquizname);
-    newDiv.append(newDivsubjectname);
+    // // Append the children to the newDiv
+    // newDiv.append(img);
+    // newDiv.append(newDivquizname);
+    // newDiv.append(newDivsubjectname);
 
-    // Append the newDiv to the parent container
-    const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
-    parentElement.append(newDiv);
+    // // Append the newDiv to the parent container
+    // const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
+    // parentElement.append(newDiv);
 
     // --------------------------------------------------------------------------------------------
 
-    const srNo = document.createElement("p");
-    const quiz = document.createElement("p");
-    const totalMarks = document.createElement("p");
-    const obtainedMarks = document.createElement("p");
-    const dynamicresult = document.createElement("div");
+    // const srNo = document.createElement("p");
+    // const quiz = document.createElement("p");
+    // const totalMarks = document.createElement("p");
+    // const obtainedMarks = document.createElement("p");
+    // const dynamicresult = document.createElement("div");
 
-    dynamicresult.classList.add("dynamicresult");
+    // dynamicresult.classList.add("dynamicresult");
 
-    srNo.textContent = "db";
-    quiz.textContent = q.name;
-    totalMarks.textContent = q.totalquestion;
-    obtainedMarks.textContent = "db";
+    // srNo.textContent = "db";
+    // quiz.textContent = q.name;
+    // totalMarks.textContent = q.totalquestion;
+    // obtainedMarks.textContent = "db";
 
-    dynamicresult.append(srNo, quiz, totalMarks, obtainedMarks);
-    const result = document.querySelector(".results"); // Select the parent container
-    result.append(dynamicresult);
+    // dynamicresult.append(srNo, quiz, totalMarks, obtainedMarks);
+    // const result = document.querySelector(".results"); // Select the parent container
+    // result.append(dynamicresult);
   }
 
   if (window.location.pathname === "/Student_Quiz.html") {
@@ -346,4 +347,48 @@ async function sendQuiz(quiz) {
     console.error("Error:", error);
   }
 }
+async function fetchQuiz() {
+  try {
+    const response = await fetch("http://localhost:4000/quizzes");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const quiz = await response.json();
+    quiz.forEach((quiz) => {
+      displayquiz(quiz);
+    });
+    console.log(quiz);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+function displayquiz(q){
+  // let newquiz = JSON.parse(q);
+  let quiz = Quiz.fromObject(q);
+
+const newDiv = document.createElement("div");
+const newDivquizname = document.createElement("div");
+const newDivsubjectname = document.createElement("div");
+const img = document.createElement("img");
+
+// Set attributes and content
+img.src = "images/Frame 251.svg";
+newDiv.classList.add("quizbox");
+newDivquizname.classList.add("quizname");
+newDivsubjectname.classList.add("subject");
+newDivquizname.textContent = quiz.name; // Assuming quiz.name contains the quiz name
+newDivsubjectname.textContent = quiz.subject; // Assuming quiz.subject contains the subject name
+
+// Append the children to the newDiv
+newDiv.append(img);
+newDiv.append(newDivquizname);
+newDiv.append(newDivsubjectname);
+
+// Append the newDiv to the parent container
+const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
+parentElement.append(newDiv);
+};
+
 // -----------------------------------------------------------------------------
