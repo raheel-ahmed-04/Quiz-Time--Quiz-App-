@@ -163,10 +163,10 @@ document.addEventListener("submit", (event) => {
 
     let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
     // ------------------------------------------------------------------------
-    sendQuiz(quiz);
+    // sendQuiz(quiz);
     // ------------------------------------------------------------------------
     storeObjecttoLS(quiz);
-    // window.location.href = "http://localhost:4000/Quiz_Creation.hbs";
+    window.location.href = "http://localhost:4000/Quiz_Creation";
     console.log("new page");
   }
   if (event.target.classList.contains("form2")) {
@@ -202,8 +202,8 @@ document.addEventListener("submit", (event) => {
         console.log("Quiz Creation Completed");
         //RESET THE QUIZ COUNTER
         localStorage.setItem("QuestionNumber", "1");
-        // sendQuiz(quiz);
-        window.location.href = "http://127.0.0.1:5500/Quizmainscreen.html";
+        sendQuiz(quiz);
+        window.location.href = "http://localhost:4000/Quiz_Creation";
       } else {
         localStorage.setItem("QuestionNumber", Q_no.toString());
         //move to next question

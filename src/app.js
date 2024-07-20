@@ -59,6 +59,9 @@ app.get("/Quizmainscreen", (req, res) => {
 app.get("/Create_a_quiz", (req, res) => {
   res.render("Create_a_quiz");
 });
+app.get("/Quiz_Creation", (req, res) => {
+  res.render("Quiz_Creation");
+});
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) => {
