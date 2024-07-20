@@ -201,9 +201,9 @@ document.addEventListener("submit", (event) => {
         //quiz creation completed
         console.log("Quiz Creation Completed");
         //RESET THE QUIZ COUNTER
-        localStorage.setItem("QuestionNumber", "1");
+        window.location.href = "http://localhost:4000/Quizmainscreen";
         sendQuiz(quiz);
-        window.location.href = "http://localhost:4000/Quiz_Creation";
+        localStorage.setItem("QuestionNumber", "1");
       } else {
         localStorage.setItem("QuestionNumber", Q_no.toString());
         //move to next question

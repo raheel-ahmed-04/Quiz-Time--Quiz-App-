@@ -62,6 +62,9 @@ app.get("/Create_a_quiz", (req, res) => {
 app.get("/Quiz_Creation", (req, res) => {
   res.render("Quiz_Creation");
 });
+app.get("/Quizmainscreen", (req, res) => {
+  res.render("Quizmainscreen");
+});
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) => {
@@ -76,7 +79,7 @@ app.post("/Student_Signup", async (req, res) => {
     });
 
     const registered = await registerStudent.save();
-    res.status(201).render("Student_Landingscreen");
+    res.status(201).redirect("/Student_Landingscreen");
   } catch (error) {
     res.status(400).send(error);
   }
@@ -122,7 +125,7 @@ app.post("/Teacher_signup", async (req, res) => {
     });
 
     const registered = await registerTeacher.save();
-    res.status(201).render("Quizmainscreen");
+    res.status(201).redirect("/Quizmainscreen");
   } catch (error) {
     res.status(400).send(error);
   }
@@ -146,7 +149,7 @@ app.post("/Teacher_login", async (req, res) => {
     if (!validPassword) {
       return res.status(400).send("Invalid password");
     } else {
-      res.status(201).render("Quizmainscreen");
+      res.status(201).redirect("/Quizmainscreen");
     }
   } catch (error) {
     res.status(400).send(error);
