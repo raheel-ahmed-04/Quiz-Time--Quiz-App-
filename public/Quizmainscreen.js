@@ -68,7 +68,8 @@ if (!localStorage.getItem("lastIndex")) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.pathname === "/Quiz_Creation.html") {
+  console.log("DOMContentLoaded event fired");
+  if (window.location.pathname === "/Quiz_Creation") {
     // Load the last quiz from local storage
     let quiz = loadLastQuizFromLocalStorage();
     if (quiz) {
