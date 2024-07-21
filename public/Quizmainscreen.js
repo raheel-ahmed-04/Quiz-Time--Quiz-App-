@@ -96,11 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   if (window.location.pathname === "/Quizmainscreen") {
-
     // Load the last quiz from local storage
-    const teacherEmail = document.cookie.match(/teacherEmail=([^;]*)/)[1];
-    const decodedTeacherEmail = decodeURIComponent(teacherEmail); //replacing %40 with @
-    fetchQuizzesByEmail(decodedTeacherEmail);
+    const classCode = document.cookie.match(/class_code_cookie=([^;]*)/)[1];
+    const decodedClassCode = decodeURIComponent(classCode); //replacing %40 with @
+    fetchQuizzesByEmail(decodedClassCode);
 
     // let q = loadLastQuizFromLocalStorage();
 
@@ -181,14 +180,16 @@ document.addEventListener("submit", (event) => {
     const btn = document.querySelector(".submit_btn");
 
     const form = document.querySelector("#quizForm");
-    const teacherEmail = document.cookie.match(/teacherEmail=([^;]*)/)[1];
-    const decodedTeacherEmail = decodeURIComponent(teacherEmail); //replacing %40 with @
-    console.log("Email = ", decodedTeacherEmail);
+
+    const classCode = document.cookie.match(/class_code_cookie=([^;]*)/)[1];
+    const decodedClassCode = decodeURIComponent(classCode); //replacing %40 with @
+    console.log("Email = ", decodedClassCode);
+
     let quiz = new Quiz(
       quizname.value,
       subject.value,
       totalquestions.value,
-      decodedTeacherEmail
+      decodedClassCode
     );
     // let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
     // ------------------------------------------------------------------------
@@ -280,10 +281,10 @@ document.addEventListener("submit", (event) => {
         console.log("Quiz Has Been Attempted");
         //RESET THE QUIZ COUNTER
         const studentEmail = document.cookie.match(/studentEmail=([^;]*)/)[1];
-        const decodedStudentEmail = decodeURIComponent(studentEmail); //replacing %40 with @
-        console.log("Email = ", decodedStudentEmail);
+        const encodedStudentEmail = encodeURIComponent(studentEmail); //replacing %40 with @
+        console.log("Email = ", encodedStudentEmail);
 
-        quiz.addattempted(decodedStudentEmail, quiz.acquiredMarks);
+        quiz.addattempted(encodedStudentEmail, quiz.acquiredMarks);
         localStorage.setItem("Quiz", JSON.stringify(quiz));
 
         localStorage.setItem("QuestionNumber", "1");
@@ -425,11 +426,13 @@ function displayquiz(q) {
   const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
   parentElement.append(newDiv);
 }
-async function fetchQuizzesByEmail(class_code) {
+async function fetchQuizzesByEmail(classCode) {
   try {
-    const class_code = encodeURIComponent(class_code);
-    const response = await fetch(`http://localhost:4000/quizzes?class_code=${class_code}`);
-    
+    const class_code = encodeURIComponent(classCode);
+    const response = await fetch(
+      `http://localhost:4000/quizzes?class_code=${class_code}`
+    );
+
     console.log("Fetching quizzes for class_code:", class_code); // Debug log
     console.log("Encoded class_code:", class_code); // Debug log
 
@@ -450,7 +453,6 @@ async function fetchQuizzesByEmail(class_code) {
     return null;
   }
 }
-
 
 // async function findStudentByEmail(email) {
 //   try {

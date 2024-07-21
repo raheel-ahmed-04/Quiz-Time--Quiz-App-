@@ -141,7 +141,7 @@ app.post("/Teacher_signup", async (req, res) => {
     });
 
     const registered = await registerTeacher.save();
-    res.cookie("teacherEmail", req.body.email);
+    res.cookie("class_code_cookie", req.body.classcode);
     res.status(201).redirect("/Quizmainscreen");
   } catch (error) {
     res.status(400).send(error);
@@ -166,7 +166,7 @@ app.post("/Teacher_login", async (req, res) => {
     if (!validPassword) {
       return res.status(400).send("Invalid password");
     } else {
-      res.cookie("teacherEmail", req.body.email);
+      res.cookie("class_code_cookie", user.class_code);
       res.status(201).redirect("/Quizmainscreen");
     }
   } catch (error) {
@@ -189,19 +189,21 @@ app.post("/quizzes", async (req, res) => {
 // // Route to get all quizzes
 app.get("/quizzes", async (req, res) => {
   try {
-    const teacherEmail = req.query.class_code;
+    const classCode = req.query.class_code;
     let quizzes;
 
-    if (teacherEmail) {
-      quizzes = await Quiz.find({ class_code: teacherEmail });
-    } 
+    if (classCode) {
+      quizzes = await Quiz.find({ class_code: classCode });
+    }
     // else {
     //   quizzes = await Quiz.find();
     // }
 
     res.status(200).json(quizzes);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving quizzes", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving quizzes", error: error.message });
   }
 });
 
