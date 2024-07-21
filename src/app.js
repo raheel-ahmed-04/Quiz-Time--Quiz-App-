@@ -91,7 +91,9 @@ app.post("/Student_Signup", async (req, res) => {
     });
 
     const registered = await registerStudent.save();
-    res.status(201).redirect("/Student_Landingscreen");
+    res.cookie("studentEmail", req.body.email);
+    // res.status(201).redirect("/Student_Landingscreen");   //go to this in future
+    res.status(201).redirect("/Student_Quiz"); //only for testing purpose this used
   } catch (error) {
     res.status(400).send(error);
   }
@@ -115,7 +117,9 @@ app.post("/Student_Login", async (req, res) => {
     if (!validPassword) {
       return res.status(400).send("Invalid password");
     } else {
-      res.status(201).render("index");
+      res.cookie("studentEmail", req.body.email);
+      // res.status(201).redirect("/Quizmainscreen");   //go to this in future
+      res.status(201).redirect("/Student_Quiz"); //only for testing purpose this used
     }
   } catch (error) {
     res.status(400).send(error);
@@ -137,6 +141,7 @@ app.post("/Teacher_signup", async (req, res) => {
     });
 
     const registered = await registerTeacher.save();
+    res.cookie("teacherEmail", req.body.email);
     res.status(201).redirect("/Quizmainscreen");
   } catch (error) {
     res.status(400).send(error);

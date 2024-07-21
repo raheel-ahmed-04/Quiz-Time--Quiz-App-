@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // result.append(dynamicresult);
   }
 
-  if (window.location.pathname === "/Student_Quiz.html") {
+  if (window.location.pathname === "/Student_Quiz") {
     // Load the last quiz from local storage
     let quiz = loadLastQuizFromLocalStorage();
     if (quiz) {
@@ -264,12 +264,11 @@ document.addEventListener("submit", (event) => {
       try {
         if (selectedText === quiz.questions[Q_no - 1].answer) {
           quiz.acquiredMarks += 1;
-          quiz.attempted[email].acquiredMarks += 1;
         }
       } catch (error) {
         console.log("Quiz has been submitted already");
       }
-      console.log("marks(updated)= ", quiz.attempted[email].acquiredMarks);
+      console.log("marks(updated)= ", quiz.acquiredMarks);
 
       Q_no += 1;
 
@@ -277,6 +276,13 @@ document.addEventListener("submit", (event) => {
         //quiz creation completed
         console.log("Quiz Has Been Attempted");
         //RESET THE QUIZ COUNTER
+        const studentEmail = document.cookie.match(/studentEmail=([^;]*)/)[1];
+        const decodedStudentEmail = decodeURIComponent(studentEmail); //replacing %40 with @
+        console.log("Email = ", decodedStudentEmail);
+
+        quiz.addattempted(decodedStudentEmail, quiz.acquiredMarks);
+        localStorage.setItem("Quiz", JSON.stringify(quiz));
+
         localStorage.setItem("QuestionNumber", "1");
 
         // window.location.href = "http://127.0.0.1:5500/Quizmainscreen.html";
