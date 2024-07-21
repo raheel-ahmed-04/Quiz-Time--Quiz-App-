@@ -17,14 +17,14 @@ function Student(email, acquiredMarks) {
   this.acquiredMarks = acquiredMarks;
 }
 class Quiz {
-  constructor(name, subject, totalquestion, teacher_email) {
+  constructor(name, subject, totalquestion, class_code) {
     this.name = name;
     this.subject = subject;
     this.questions = [];
     this.attempted = [];
     this.totalquestion = totalquestion;
     this.acquiredMarks = 0;
-    this.teacher_email = teacher_email;
+    this.class_code = class_code;
   }
 
   addattempted(email, acquiredMarks) {
@@ -54,7 +54,7 @@ class Quiz {
       obj.name,
       obj.subject,
       obj.totalquestion,
-      obj.teacher_email
+      obj.class_code
     );
     quiz.questions = obj.questions.map(
       (q) =>
@@ -96,8 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   if (window.location.pathname === "/Quizmainscreen") {
+
     // Load the last quiz from local storage
-    fetchQuiz();
+    const teacherEmail = document.cookie.match(/teacherEmail=([^;]*)/)[1];
+    const decodedTeacherEmail = decodeURIComponent(teacherEmail); //replacing %40 with @
+    fetchQuizzesByEmail(decodedTeacherEmail);
 
     // let q = loadLastQuizFromLocalStorage();
 
@@ -379,23 +382,23 @@ async function sendQuiz(quiz) {
     console.error("Error:", error);
   }
 }
-async function fetchQuiz() {
-  try {
-    const response = await fetch("http://localhost:4000/quizzes");
+// async function fetchQuiz() {
+//   try {
+//     const response = await fetch("http://localhost:4000/quizzes");
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
 
-    const quiz = await response.json();
-    quiz.forEach((quiz) => {
-      displayquiz(quiz);
-    });
-    console.log(quiz);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
+//     const quiz = await response.json();
+//     quiz.forEach((quiz) => {
+//       displayquiz(quiz);
+//     });
+//     console.log(quiz);
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// }
 function displayquiz(q) {
   // let newquiz = JSON.parse(q);
   let quiz = Quiz.fromObject(q);
@@ -422,6 +425,32 @@ function displayquiz(q) {
   const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
   parentElement.append(newDiv);
 }
+async function fetchQuizzesByEmail(class_code) {
+  try {
+    const class_code = encodeURIComponent(class_code);
+    const response = await fetch(`http://localhost:4000/quizzes?class_code=${class_code}`);
+    
+    console.log("Fetching quizzes for class_code:", class_code); // Debug log
+    console.log("Encoded class_code:", class_code); // Debug log
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Fetch error response text:", errorText); // Debug log
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+    }
+
+    const quizzes = await response.json();
+    quizzes.forEach((quiz) => {
+      displayquiz(quiz);
+    });
+    console.log("Quizzes found:", quizzes); // Debug log
+    return quizzes;
+  } catch (error) {
+    console.error("Error fetching quizzes:", error); // Debug log
+    return null;
+  }
+}
+
 
 // async function findStudentByEmail(email) {
 //   try {

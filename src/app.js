@@ -189,12 +189,19 @@ app.post("/quizzes", async (req, res) => {
 // // Route to get all quizzes
 app.get("/quizzes", async (req, res) => {
   try {
-    const quizzes = await Quiz.find();
+    const teacherEmail = req.query.class_code;
+    let quizzes;
+
+    if (teacherEmail) {
+      quizzes = await Quiz.find({ class_code: teacherEmail });
+    } 
+    // else {
+    //   quizzes = await Quiz.find();
+    // }
+
     res.status(200).json(quizzes);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error retrieving quizzes", error: error.message });
+    res.status(500).json({ message: "Error retrieving quizzes", error: error.message });
   }
 });
 
