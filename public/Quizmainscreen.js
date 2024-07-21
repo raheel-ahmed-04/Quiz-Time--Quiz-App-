@@ -310,6 +310,13 @@ document.addEventListener("submit", (event) => {
       }
     }
   }
+  if (event.target.classList.contains("form4")) {
+    event.preventDefault();
+    let StudentClassCode = document.querySelector(".StudentClassCode");
+    window.location.href = "http://localhost:4000/Quizmainscreen";
+    if (window.location.pathname === "/Quizmainscreen") {
+      fetchQuizzesByEmail(StudentClassCode);
+    }}
 });
 
 function GetQuizContents(QuestionNumber, QuizObject) {

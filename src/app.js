@@ -54,8 +54,8 @@ app.get("/Teacher_login", (req, res) => {
   res.render("Teacher_login");
 });
 
-app.get("/Student_Landingscreen", (req, res) => {
-  res.render("Student_Landingscreen");
+app.get("/Student_landing_screen", (req, res) => {
+  res.render("Student_landing_screen");
 });
 
 app.get("/Teacher_Landingscreen", (req, res) => {
@@ -93,7 +93,7 @@ app.post("/Student_Signup", async (req, res) => {
     const registered = await registerStudent.save();
     res.cookie("studentEmail", req.body.email);
     // res.status(201).redirect("/Student_Landingscreen");   //go to this in future
-    res.status(201).redirect("/Student_Quiz"); //only for testing purpose this used
+    res.status(201).redirect("/Student_landing_screen"); //only for testing purpose this used
   } catch (error) {
     res.status(400).send(error);
   }
@@ -119,7 +119,7 @@ app.post("/Student_Login", async (req, res) => {
     } else {
       res.cookie("studentEmail", req.body.email);
       // res.status(201).redirect("/Quizmainscreen");   //go to this in future
-      res.status(201).redirect("/Student_Quiz"); //only for testing purpose this used
+      res.status(201).redirect("/Student_landing_screen"); //only for testing purpose this used
     }
   } catch (error) {
     res.status(400).send(error);
