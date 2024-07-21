@@ -78,7 +78,6 @@ app.get("/Student_Quiz", (req, res) => {
   res.render("Student_Quiz");
 });
 
-
 //create new user in db
 app.post("/Student_Signup", async (req, res) => {
   try {
@@ -162,6 +161,7 @@ app.post("/Teacher_login", async (req, res) => {
     if (!validPassword) {
       return res.status(400).send("Invalid password");
     } else {
+      res.cookie("teacherEmail", req.body.email);
       res.status(201).redirect("/Quizmainscreen");
     }
   } catch (error) {
@@ -193,7 +193,6 @@ app.get("/quizzes", async (req, res) => {
   }
 });
 
-
 // app.get("/students", async (req, res) => {
 //   try {
 //     const email = req.query.email;
@@ -212,7 +211,6 @@ app.get("/quizzes", async (req, res) => {
 //     res.status(500).json({ message: "Error retrieving student", error: error.message });
 //   }
 // });
-
 
 // app.get("/students", async (req, res) => {
 //   try {

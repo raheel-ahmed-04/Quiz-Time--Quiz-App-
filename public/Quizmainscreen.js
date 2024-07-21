@@ -17,13 +17,14 @@ function Student(email, acquiredMarks) {
   this.acquiredMarks = acquiredMarks;
 }
 class Quiz {
-  constructor(name, subject, totalquestion) {
+  constructor(name, subject, totalquestion, teacher_email) {
     this.name = name;
     this.subject = subject;
     this.questions = [];
     this.attempted = [];
     this.totalquestion = totalquestion;
     this.acquiredMarks = 0;
+    this.teacher_email = teacher_email;
   }
 
   addattempted(email, acquiredMarks) {
@@ -49,7 +50,12 @@ class Quiz {
   }
 
   static fromObject(obj) {
-    const quiz = new Quiz(obj.name, obj.subject, obj.totalquestion);
+    const quiz = new Quiz(
+      obj.name,
+      obj.subject,
+      obj.totalquestion,
+      obj.teacher_email
+    );
     quiz.questions = obj.questions.map(
       (q) =>
         new Question(
@@ -172,8 +178,16 @@ document.addEventListener("submit", (event) => {
     const btn = document.querySelector(".submit_btn");
 
     const form = document.querySelector("#quizForm");
-
-    let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
+    const teacherEmail = document.cookie.match(/teacherEmail=([^;]*)/)[1];
+    const decodedTeacherEmail = decodeURIComponent(teacherEmail); //replacing %40 with @
+    console.log("Email = ", decodedTeacherEmail);
+    let quiz = new Quiz(
+      quizname.value,
+      subject.value,
+      totalquestions.value,
+      decodedTeacherEmail
+    );
+    // let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
     // ------------------------------------------------------------------------
     // sendQuiz(quiz);
     // ------------------------------------------------------------------------
@@ -407,7 +421,7 @@ function displayquiz(q) {
 //   try {
 //     // Make a request to the backend API to find a student by email
 //     const response = await fetch(`http://localhost:4000/students?email=${encodeURIComponent(email)}`);
-    
+
 //     // Check if the response is OK
 //     if (!response.ok) {
 //       throw new Error(`HTTP error! status: ${response.status}`);
@@ -415,7 +429,7 @@ function displayquiz(q) {
 
 //     // Parse the JSON data from the response
 //     const data = await response.json();
-    
+
 //     // Check if data is an array and has elements
 //     if (Array.isArray(data) && data.length > 0) {
 //       return data[0]; // Assuming email is unique and we return the first match
@@ -436,6 +450,5 @@ function displayquiz(q) {
 //     console.log("Student not found.");
 //   }
 // });
-
 
 // -----------------------------------------------------------------------------
