@@ -137,11 +137,11 @@ app.post("/Teacher_signup", async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       className: req.body.classname,
-      classCode: req.body.classCode,
+      classCode: req.body.classcode,
     });
 
     const registered = await registerTeacher.save();
-    res.cookie("classCode_cookie", req.body.classCode);
+    res.cookie("classCode_cookie", req.body.classcode);
     res.status(201).redirect("/Quizmainscreen");
   } catch (error) {
     res.status(400).send(error);
@@ -203,7 +203,6 @@ app.get("/quizzes", async (req, res) => {
       .json({ message: "Error retrieving quizzes", error: error.message });
   }
 });
-
 
 // app.get("/students", async (req, res) => {
 //   try {

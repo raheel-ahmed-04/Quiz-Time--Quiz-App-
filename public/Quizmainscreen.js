@@ -71,7 +71,7 @@ class Quiz {
     // quiz.attempted = obj.attempted.map(
     //   (a) => new Student(a.email, a.acquiredMarks)
     // );
-    // quiz.acquiredMarks = obj.acquiredMarks;
+    quiz.acquiredMarks = obj.acquiredMarks;
     quiz.totalquestion = obj.totalquestion;
     return quiz;
   }
@@ -273,6 +273,7 @@ document.addEventListener("submit", (event) => {
         console.log("Quiz has been submitted already");
       }
       console.log("marks(updated)= ", quiz.acquiredMarks);
+      storeObjectToLastIndex(quiz);
 
       Q_no += 1;
 
@@ -281,11 +282,11 @@ document.addEventListener("submit", (event) => {
         console.log("Quiz Has Been Attempted");
         //RESET THE QUIZ COUNTER
         const studentEmail = document.cookie.match(/studentEmail=([^;]*)/)[1];
-        const encodedStudentEmail = encodeURIComponent(studentEmail); //replacing %40 with @
-        console.log("Email = ", encodedStudentEmail);
+        const updatedStudentEmail = studentEmail.replace("%40", "@"); //replacing %40 with @
+        console.log("Email = ", updatedStudentEmail);
 
-        quiz.addattempted(encodedStudentEmail, quiz.acquiredMarks);
-        localStorage.setItem("Quiz", JSON.stringify(quiz));
+        quiz.addattempted(updatedStudentEmail, quiz.acquiredMarks);
+        storeObjectToLastIndex(quiz);
 
         localStorage.setItem("QuestionNumber", "1");
 
@@ -453,7 +454,6 @@ async function fetchQuizzesByEmail(class_N) {
     return null;
   }
 }
-
 
 // async function findStudentByEmail(email) {
 //   try {
