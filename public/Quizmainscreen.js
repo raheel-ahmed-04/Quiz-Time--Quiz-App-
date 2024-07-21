@@ -12,14 +12,22 @@ class Question {
     this.answer = answer;
   }
 }
-
+function Student(email, acquiredMarks) {
+  this.email = email;
+  this.acquiredMarks = acquiredMarks;
+}
 class Quiz {
   constructor(name, subject, totalquestion) {
     this.name = name;
     this.subject = subject;
     this.questions = [];
+    this.attempted = [];
     this.totalquestion = totalquestion;
-    this.acquiredMarks = 0;
+    // this.acquiredMarks = 0;
+  }
+
+  addattempted(email, acquiredMarks) {
+    this.attempted.push(new Student(email, acquiredMarks));
   }
 
   addQuestion(question) {
@@ -34,11 +42,11 @@ class Quiz {
     return this.questions.reduce((total, question) => total + question.mark, 0);
   }
 
-  calculateMarks(question, userInput) {
-    if (question.answer === userInput) {
-      this.acquiredMarks += question.mark;
-    }
-  }
+  // calculateMarks(question, userInput) {
+  //   if (question.answer === userInput) {
+  //     this.acquiredMarks += question.mark;
+  //   }
+  // }
 
   static fromObject(obj) {
     const quiz = new Quiz(obj.name, obj.subject, obj.totalquestion);
@@ -54,7 +62,10 @@ class Quiz {
           q.answer
         )
     );
-    quiz.acquiredMarks = obj.acquiredMarks;
+    quiz.attempted = obj.attempted.map(
+      (a) => new Student(a.email, a.acquiredMarks)
+    );
+    // quiz.acquiredMarks = obj.acquiredMarks;
     quiz.totalquestion = obj.totalquestion;
     return quiz;
   }
@@ -238,12 +249,13 @@ document.addEventListener("submit", (event) => {
       // Compare the selected text with the correct answer
       try {
         if (selectedText === quiz.questions[Q_no - 1].answer) {
-          quiz.acquiredMarks += 1;
+          // quiz.acquiredMarks += 1;
+          quiz.attempted[email].acquiredMarks += 1;
         }
       } catch (error) {
         console.log("Quiz has been submitted already");
       }
-      console.log("marks(updated)= ", quiz.acquiredMarks);
+      console.log("marks(updated)= ", quiz.attempted[email].acquiredMarks);
 
       Q_no += 1;
 
@@ -364,31 +376,31 @@ async function fetchQuiz() {
     console.error("Error:", error);
   }
 }
-function displayquiz(q){
+function displayquiz(q) {
   // let newquiz = JSON.parse(q);
   let quiz = Quiz.fromObject(q);
 
-const newDiv = document.createElement("div");
-const newDivquizname = document.createElement("div");
-const newDivsubjectname = document.createElement("div");
-const img = document.createElement("img");
+  const newDiv = document.createElement("div");
+  const newDivquizname = document.createElement("div");
+  const newDivsubjectname = document.createElement("div");
+  const img = document.createElement("img");
 
-// Set attributes and content
-img.src = "images/Frame 251.svg";
-newDiv.classList.add("quizbox");
-newDivquizname.classList.add("quizname");
-newDivsubjectname.classList.add("subject");
-newDivquizname.textContent = quiz.name; // Assuming quiz.name contains the quiz name
-newDivsubjectname.textContent = quiz.subject; // Assuming quiz.subject contains the subject name
+  // Set attributes and content
+  img.src = "images/Frame 251.svg";
+  newDiv.classList.add("quizbox");
+  newDivquizname.classList.add("quizname");
+  newDivsubjectname.classList.add("subject");
+  newDivquizname.textContent = quiz.name; // Assuming quiz.name contains the quiz name
+  newDivsubjectname.textContent = quiz.subject; // Assuming quiz.subject contains the subject name
 
-// Append the children to the newDiv
-newDiv.append(img);
-newDiv.append(newDivquizname);
-newDiv.append(newDivsubjectname);
+  // Append the children to the newDiv
+  newDiv.append(img);
+  newDiv.append(newDivquizname);
+  newDiv.append(newDivsubjectname);
 
-// Append the newDiv to the parent container
-const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
-parentElement.append(newDiv);
-};
+  // Append the newDiv to the parent container
+  const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
+  parentElement.append(newDiv);
+}
 
 // -----------------------------------------------------------------------------

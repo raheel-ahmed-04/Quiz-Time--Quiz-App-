@@ -174,9 +174,22 @@ app.get("/quizzes", async (req, res) => {
     const quizzes = await Quiz.find();
     res.status(200).json(quizzes);
   } catch (error) {
-    res.status(500).json({ message: "Error retrieving quizzes", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error retrieving quizzes", error: error.message });
   }
 });
+
+// app.get("/students", async (req, res) => {
+//   try {
+//     const email = await Student.find();
+//     res.status(200).json(email);
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ message: "Error retrieving quizzes", error: error.message });
+//   }
+// });
 
 // -----------------------------------------------------------------------------
 app.listen(port, () => {
