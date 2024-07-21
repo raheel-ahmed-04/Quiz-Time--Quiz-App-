@@ -137,11 +137,11 @@ app.post("/Teacher_signup", async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
       className: req.body.classname,
-      classCode: req.body.classcode,
+      classCode: req.body.classCode,
     });
 
     const registered = await registerTeacher.save();
-    res.cookie("class_code_cookie", req.body.classcode);
+    res.cookie("classCode_cookie", req.body.classCode);
     res.status(201).redirect("/Quizmainscreen");
   } catch (error) {
     res.status(400).send(error);
@@ -152,21 +152,18 @@ app.post("/Teacher_login", async (req, res) => {
   try {
     // Retrieve user data from the database
     const user = await Teacher.findOne({ email: req.body.email });
-
     if (!user) {
       return res.status(400).send("User not found");
     }
-
     // Compare the hashed password with the one provided in the request
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
-
     if (!validPassword) {
       return res.status(400).send("Invalid password");
     } else {
-      res.cookie("class_code_cookie", user.class_code);
+      res.cookie("classCode_cookie", user.classCode);
       res.status(201).redirect("/Quizmainscreen");
     }
   } catch (error) {
@@ -189,11 +186,11 @@ app.post("/quizzes", async (req, res) => {
 // // Route to get all quizzes
 app.get("/quizzes", async (req, res) => {
   try {
-    const classCode = req.query.class_code;
+    const classCode = req.query.classCode;
     let quizzes;
 
     if (classCode) {
-      quizzes = await Quiz.find({ class_code: classCode });
+      quizzes = await Quiz.find({ classCode: classCode });
     }
     // else {
     //   quizzes = await Quiz.find();
@@ -206,6 +203,7 @@ app.get("/quizzes", async (req, res) => {
       .json({ message: "Error retrieving quizzes", error: error.message });
   }
 });
+
 
 // app.get("/students", async (req, res) => {
 //   try {

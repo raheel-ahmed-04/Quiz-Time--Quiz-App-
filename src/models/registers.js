@@ -30,7 +30,7 @@ const quizSchema = new mongoose.Schema({
   questions: [questionSchema],
   totalquestion: Number,
   acquiredMarks: Number,
-  class_code: String,
+  classCode: String,
 });
 
 const Student = new mongoose.model("Student", StudentSchema);

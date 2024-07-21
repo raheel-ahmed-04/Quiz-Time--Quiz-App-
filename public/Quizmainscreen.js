@@ -17,14 +17,14 @@ function Student(email, acquiredMarks) {
   this.acquiredMarks = acquiredMarks;
 }
 class Quiz {
-  constructor(name, subject, totalquestion, class_code) {
+  constructor(name, subject, totalquestion, classCode) {
     this.name = name;
     this.subject = subject;
     this.questions = [];
     this.attempted = [];
     this.totalquestion = totalquestion;
     this.acquiredMarks = 0;
-    this.class_code = class_code;
+    this.classCode = classCode;
   }
 
   addattempted(email, acquiredMarks) {
@@ -54,7 +54,7 @@ class Quiz {
       obj.name,
       obj.subject,
       obj.totalquestion,
-      obj.class_code
+      obj.classCode
     );
     quiz.questions = obj.questions.map(
       (q) =>
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (window.location.pathname === "/Quizmainscreen") {
     // Load the last quiz from local storage
-    const classCode = document.cookie.match(/class_code_cookie=([^;]*)/)[1];
+    const classCode = document.cookie.match(/classCode_cookie=([^;]*)/)[1];
     const decodedClassCode = decodeURIComponent(classCode); //replacing %40 with @
     fetchQuizzesByEmail(decodedClassCode);
 
@@ -181,7 +181,7 @@ document.addEventListener("submit", (event) => {
 
     const form = document.querySelector("#quizForm");
 
-    const classCode = document.cookie.match(/class_code_cookie=([^;]*)/)[1];
+    const classCode = document.cookie.match(/classCode_cookie=([^;]*)/)[1];
     const decodedClassCode = decodeURIComponent(classCode); //replacing %40 with @
     console.log("Email = ", decodedClassCode);
 
@@ -426,15 +426,15 @@ function displayquiz(q) {
   const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
   parentElement.append(newDiv);
 }
-async function fetchQuizzesByEmail(classCode) {
+async function fetchQuizzesByEmail(class_N) {
   try {
-    const class_code = encodeURIComponent(classCode);
+    const classCode = encodeURIComponent(class_N);
     const response = await fetch(
-      `http://localhost:4000/quizzes?class_code=${class_code}`
+      `http://localhost:4000/quizzes?classCode=${classCode}`
     );
 
-    console.log("Fetching quizzes for class_code:", class_code); // Debug log
-    console.log("Encoded class_code:", class_code); // Debug log
+    console.log("Fetching quizzes for classCode:", classCode); // Debug log
+    console.log("Encoded classCode:", classCode); // Debug log
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -453,6 +453,7 @@ async function fetchQuizzesByEmail(classCode) {
     return null;
   }
 }
+
 
 // async function findStudentByEmail(email) {
 //   try {
