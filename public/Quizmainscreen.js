@@ -23,7 +23,7 @@ class Quiz {
     this.questions = [];
     this.attempted = [];
     this.totalquestion = totalquestion;
-    // this.acquiredMarks = 0;
+    this.acquiredMarks = 0;
   }
 
   addattempted(email, acquiredMarks) {
@@ -42,11 +42,11 @@ class Quiz {
     return this.questions.reduce((total, question) => total + question.mark, 0);
   }
 
-  // calculateMarks(question, userInput) {
-  //   if (question.answer === userInput) {
-  //     this.acquiredMarks += question.mark;
-  //   }
-  // }
+  calculateMarks(question, userInput) {
+    if (question.answer === userInput) {
+      this.acquiredMarks += question.mark;
+    }
+  }
 
   static fromObject(obj) {
     const quiz = new Quiz(obj.name, obj.subject, obj.totalquestion);
@@ -62,9 +62,9 @@ class Quiz {
           q.answer
         )
     );
-    quiz.attempted = obj.attempted.map(
-      (a) => new Student(a.email, a.acquiredMarks)
-    );
+    // quiz.attempted = obj.attempted.map(
+    //   (a) => new Student(a.email, a.acquiredMarks)
+    // );
     // quiz.acquiredMarks = obj.acquiredMarks;
     quiz.totalquestion = obj.totalquestion;
     return quiz;
@@ -249,7 +249,7 @@ document.addEventListener("submit", (event) => {
       // Compare the selected text with the correct answer
       try {
         if (selectedText === quiz.questions[Q_no - 1].answer) {
-          // quiz.acquiredMarks += 1;
+          quiz.acquiredMarks += 1;
           quiz.attempted[email].acquiredMarks += 1;
         }
       } catch (error) {
@@ -402,5 +402,40 @@ function displayquiz(q) {
   const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
   parentElement.append(newDiv);
 }
+
+// async function findStudentByEmail(email) {
+//   try {
+//     // Make a request to the backend API to find a student by email
+//     const response = await fetch(`http://localhost:4000/students?email=${encodeURIComponent(email)}`);
+    
+//     // Check if the response is OK
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     // Parse the JSON data from the response
+//     const data = await response.json();
+    
+//     // Check if data is an array and has elements
+//     if (Array.isArray(data) && data.length > 0) {
+//       return data[0]; // Assuming email is unique and we return the first match
+//     } else {
+//       throw new Error("No student found with the given email.");
+//     }
+//   } catch (error) {
+//     console.error("Error finding student:", error);
+//     return null; // Return null if an error occurs
+//   }
+// }
+
+// // Example usage:
+// findStudentByEmail("student1@example.com").then(student => {
+//   if (student) {
+//     console.log("Student found:", student);
+//   } else {
+//     console.log("Student not found.");
+//   }
+// });
+
 
 // -----------------------------------------------------------------------------

@@ -25,6 +25,7 @@ hbs.registerPartials(partials_path);
 app.get("/", (req, res) => {
   res.render("hero-section");
 });
+
 app.get("/Student_Signup", (req, res) => {
   res.render("Student_Signup");
 });
@@ -32,39 +33,51 @@ app.get("/Student_Signup", (req, res) => {
 app.get("/Teacher_signup", (req, res) => {
   res.render("Teacher_signup");
 });
+
 app.get("/Admin_landing_screen", (req, res) => {
   res.render("Admin_landing_screen");
 });
+
 app.get("/Alreadyacc", (req, res) => {
   res.render("Alreadyacc");
 });
+
 app.get("/Alreadyaccadmin", (req, res) => {
   res.render("Alreadyaccadmin");
 });
+
 app.get("/Student_Login", (req, res) => {
   res.render("Student_Login");
 });
+
 app.get("/Teacher_login", (req, res) => {
   res.render("Teacher_login");
 });
+
 app.get("/Student_Landingscreen", (req, res) => {
   res.render("Student_Landingscreen");
 });
+
 app.get("/Teacher_Landingscreen", (req, res) => {
   res.render("Teacher_Landingscreen");
 });
+
 app.get("/Quizmainscreen", (req, res) => {
   res.render("Quizmainscreen");
 });
+
 app.get("/Create_a_quiz", (req, res) => {
   res.render("Create_a_quiz");
 });
+
 app.get("/Quiz_Creation", (req, res) => {
   res.render("Quiz_Creation");
 });
-app.get("/Quizmainscreen", (req, res) => {
-  res.render("Quizmainscreen");
+
+app.get("/Student_Quiz", (req, res) => {
+  res.render("Student_Quiz");
 });
+
 
 //create new user in db
 app.post("/Student_Signup", async (req, res) => {
@@ -179,6 +192,27 @@ app.get("/quizzes", async (req, res) => {
       .json({ message: "Error retrieving quizzes", error: error.message });
   }
 });
+
+
+// app.get("/students", async (req, res) => {
+//   try {
+//     const email = req.query.email;
+//     if (!email) {
+//       return res.status(400).json({ message: "Email query parameter is required" });
+//     }
+
+//     // Find the student by email
+//     const student = await Student.findOne({ email: email });
+//     if (!student) {
+//       return res.status(404).json({ message: "Student not found" });
+//     }
+
+//     res.status(200).json(student);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error retrieving student", error: error.message });
+//   }
+// });
+
 
 // app.get("/students", async (req, res) => {
 //   try {
