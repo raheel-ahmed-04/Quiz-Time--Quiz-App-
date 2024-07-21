@@ -184,11 +184,11 @@ app.post("/quizzes", async (req, res) => {
 // // Route to get all quizzes
 app.get("/quizzes", async (req, res) => {
   try {
-    const teacherEmail = req.query.teacher_email;
+    const teacherEmail = req.query.class_code;
     let quizzes;
 
     if (teacherEmail) {
-      quizzes = await Quiz.find({ teacher_email: teacherEmail });
+      quizzes = await Quiz.find({ class_code: teacherEmail });
     } 
     // else {
     //   quizzes = await Quiz.find();

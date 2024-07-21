@@ -17,14 +17,14 @@ function Student(email, acquiredMarks) {
   this.acquiredMarks = acquiredMarks;
 }
 class Quiz {
-  constructor(name, subject, totalquestion, teacher_email) {
+  constructor(name, subject, totalquestion, class_code) {
     this.name = name;
     this.subject = subject;
     this.questions = [];
     this.attempted = [];
     this.totalquestion = totalquestion;
     this.acquiredMarks = 0;
-    this.teacher_email = teacher_email;
+    this.class_code = class_code;
   }
 
   addattempted(email, acquiredMarks) {
@@ -54,7 +54,7 @@ class Quiz {
       obj.name,
       obj.subject,
       obj.totalquestion,
-      obj.teacher_email
+      obj.class_code
     );
     quiz.questions = obj.questions.map(
       (q) =>
@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   if (window.location.pathname === "/Quizmainscreen") {
+
     // Load the last quiz from local storage
     const teacherEmail = document.cookie.match(/teacherEmail=([^;]*)/)[1];
     const decodedTeacherEmail = decodeURIComponent(teacherEmail); //replacing %40 with @
@@ -418,13 +419,13 @@ function displayquiz(q) {
   const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
   parentElement.append(newDiv);
 }
-async function fetchQuizzesByEmail(email) {
+async function fetchQuizzesByEmail(class_code) {
   try {
-    const encodedEmail = encodeURIComponent(email);
-    const response = await fetch(`http://localhost:4000/quizzes?teacher_email=${encodedEmail}`);
+    const class_code = encodeURIComponent(class_code);
+    const response = await fetch(`http://localhost:4000/quizzes?class_code=${class_code}`);
     
-    console.log("Fetching quizzes for email:", email); // Debug log
-    console.log("Encoded email:", encodedEmail); // Debug log
+    console.log("Fetching quizzes for class_code:", class_code); // Debug log
+    console.log("Encoded class_code:", class_code); // Debug log
 
     if (!response.ok) {
       const errorText = await response.text();
