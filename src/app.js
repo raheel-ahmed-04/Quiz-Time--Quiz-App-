@@ -196,10 +196,6 @@ app.get("/quizzes", async (req, res) => {
     if (classCode) {
       quizzes = await Quiz.find({ classCode: classCode });
     }
-    // else {
-    //   quizzes = await Quiz.find();
-    // }
-
     res.status(200).json(quizzes);
   } catch (error) {
     res
@@ -212,13 +208,16 @@ app.put("/quizzes", async (req, res) => {
   try {
     const { name, updateFields } = req.body;
 
-    if (!name || !updateFields) {
+    if (!name || !updateFields || !updateFields.attempted) {
       return res
         .status(400)
-        .send({ error: "name and updateFields are required" });
+        .send({ error: "name and updateFields with attempted are required" });
     }
 
-    const updateResult = await Quiz.updateOne({ name }, { $set: updateFields });
+    const updateResult = await Quiz.updateOne(
+      { name },
+      { $push: { attempted: { $each: updateFields.attempted } } }
+    );
 
     if (updateResult.nModified === 0) {
       return res
@@ -233,6 +232,7 @@ app.put("/quizzes", async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+
 
 // app.get("/students", async (req, res) => {
 //   try {
