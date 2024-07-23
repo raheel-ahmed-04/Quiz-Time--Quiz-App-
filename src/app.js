@@ -92,6 +92,7 @@ app.post("/Student_Signup", async (req, res) => {
 
     const registered = await registerStudent.save();
     res.cookie("studentEmail", req.body.email);
+    res.cookie("Entity_cookie", "Student");
     // res.status(201).redirect("/Student_Landingscreen");   //go to this in future
     res.status(201).redirect("/Student_landing_screen"); //only for testing purpose this used
   } catch (error) {
@@ -118,6 +119,7 @@ app.post("/Student_Login", async (req, res) => {
       return res.status(400).send("Invalid password");
     } else {
       res.cookie("studentEmail", req.body.email);
+      res.cookie("Entity_cookie", "Student");
       // res.status(201).redirect("/Quizmainscreen");   //go to this in future
       res.status(201).redirect("/Student_landing_screen"); //only for testing purpose this used
     }
@@ -142,6 +144,7 @@ app.post("/Teacher_signup", async (req, res) => {
 
     const registered = await registerTeacher.save();
     res.cookie("classCode_cookie", req.body.classcode);
+    res.cookie("Entity_cookie", "Teacher");
     res.status(201).redirect("/Quizmainscreen");
   } catch (error) {
     res.status(400).send(error);
@@ -164,6 +167,7 @@ app.post("/Teacher_login", async (req, res) => {
       return res.status(400).send("Invalid password");
     } else {
       res.cookie("classCode_cookie", user.classCode);
+      res.cookie("Entity_cookie", "Teacher");
       res.status(201).redirect("/Quizmainscreen");
     }
   } catch (error) {
@@ -201,6 +205,32 @@ app.get("/quizzes", async (req, res) => {
     res
       .status(500)
       .json({ message: "Error retrieving quizzes", error: error.message });
+  }
+});
+
+app.put("/quizzes", async (req, res) => {
+  try {
+    const { name, updateFields } = req.body;
+
+    if (!name || !updateFields) {
+      return res
+        .status(400)
+        .send({ error: "name and updateFields are required" });
+    }
+
+    const updateResult = await Quiz.updateOne({ name }, { $set: updateFields });
+
+    if (updateResult.nModified === 0) {
+      return res
+        .status(404)
+        .send({ message: "No quizzes found to update with the given name" });
+    }
+
+    res
+      .status(200)
+      .send({ message: "Quiz updated successfully", updateResult });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
   }
 });
 

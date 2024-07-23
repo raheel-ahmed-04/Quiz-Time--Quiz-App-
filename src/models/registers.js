@@ -24,10 +24,16 @@ const questionSchema = new mongoose.Schema({
   answer: String,
 });
 
+const attemptedSchema = new mongoose.Schema({
+  email: String,
+  acquiredMarks: Number,
+});
+
 const quizSchema = new mongoose.Schema({
   name: String,
   subject: String,
   questions: [questionSchema],
+  attempted: [attemptedSchema],
   totalquestion: Number,
   acquiredMarks: Number,
   classCode: String,
