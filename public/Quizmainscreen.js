@@ -99,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (window.location.pathname === "/Quizmainscreen") {
     // Load the last quiz from local storage
+    // localStorage.clear();
     const entity = document.cookie.match(/Entity_cookie=([^;]*)/)[1];
 
     if (entity === "Teacher") {
@@ -117,26 +118,26 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((error) => {
           console.error("Error fetching quizzes: ", error);
         });
-    }
-  } else if (entity === "Student") {
-    // const StudentClassCode = document.cookie.match(
-    //   /classCode_cookie=([^;]*)/
-    // )[1];
-    const StudentClassCode = getCookie("Code_cookie");
-    console.log("Class code cookie = ", StudentClassCode);
-    // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
-    // console.log("MAINSCREENQUIZ: ", MAINSCREEN_QUIZZES);
-    fetchQuizzesByEmail(StudentClassCode)
-      .then((result) => {
-        MAINSCREEN_QUIZZES = result;
-        console.log("MAINSCREEN_QUIZZES: ", MAINSCREEN_QUIZZES);
-        MAINSCREEN_QUIZZES.forEach((quiz) => {
-          dynamicResult(quiz);
+    } else if (entity === "Student") {
+      // const StudentClassCode = document.cookie.match(
+      //   /classCode_cookie=([^;]*)/
+      // )[1];
+      const StudentClassCode = getCookie("Code_cookie");
+      console.log("Class code cookie = ", StudentClassCode);
+      // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
+      // console.log("MAINSCREENQUIZ: ", MAINSCREEN_QUIZZES);
+      fetchQuizzesByEmail(StudentClassCode)
+        .then((result) => {
+          MAINSCREEN_QUIZZES = result;
+          console.log("MAINSCREEN_QUIZZES: ", MAINSCREEN_QUIZZES);
+          MAINSCREEN_QUIZZES.forEach((quiz) => {
+            dynamicResult(quiz);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching quizzes: ", error);
         });
-      })
-      .catch((error) => {
-        console.error("Error fetching quizzes: ", error);
-      });
+    }
   }
 
   // let q = loadLastQuizFromLocalStorage();
