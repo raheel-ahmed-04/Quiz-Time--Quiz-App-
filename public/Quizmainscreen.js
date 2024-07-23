@@ -105,68 +105,82 @@ document.addEventListener("DOMContentLoaded", () => {
       const classCode = document.cookie.match(/classCode_cookie=([^;]*)/)[1];
       const decodedClassCode = decodeURIComponent(classCode); //replacing %40 with @
       console.log("inside DOM content loaded");
-      fetchQuizzesByEmail(decodedClassCode);
-    } else if (entity === "Student") {
-      // const StudentClassCode = document.cookie.match(
-      //   /classCode_cookie=([^;]*)/
-      // )[1];
-      const StudentClassCode = getCookie("Code_cookie");
-      console.log("Class code cookie = ", StudentClassCode);
-      // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
-      // console.log("MAINSCREENQUIZ: ", MAINSCREEN_QUIZZES);
-      fetchQuizzesByEmail(StudentClassCode)
+      //loading quizzes and results
+      fetchQuizzesByEmail(decodedClassCode)
         .then((result) => {
           MAINSCREEN_QUIZZES = result;
           console.log("MAINSCREEN_QUIZZES: ", MAINSCREEN_QUIZZES);
+          MAINSCREEN_QUIZZES.forEach((quiz) => {
+            dynamicResult(quiz);
+          });
         })
         .catch((error) => {
           console.error("Error fetching quizzes: ", error);
         });
     }
-
-    // let q = loadLastQuizFromLocalStorage();
-
-    // const newDiv = document.createElement("div");
-    // const newDivquizname = document.createElement("div");
-    // const newDivsubjectname = document.createElement("div");
-    // const img = document.createElement("img");
-
-    // // Set attributes and content
-    // img.src = "images/Frame 251.svg";
-    // newDiv.classList.add("quizbox");
-    // newDivquizname.classList.add("quizname");
-    // newDivsubjectname.classList.add("subject");
-    // newDivquizname.textContent = q.name; // Assuming quiz.name contains the quiz name
-    // newDivsubjectname.textContent = q.subject; // Assuming quiz.subject contains the subject name
-
-    // // Append the children to the newDiv
-    // newDiv.append(img);
-    // newDiv.append(newDivquizname);
-    // newDiv.append(newDivsubjectname);
-
-    // // Append the newDiv to the parent container
-    // const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
-    // parentElement.append(newDiv);
-
-    // --------------------------------------------------------------------------------------------
-
-    // const srNo = document.createElement("p");
-    // const quiz = document.createElement("p");
-    // const totalMarks = document.createElement("p");
-    // const obtainedMarks = document.createElement("p");
-    // const dynamicresult = document.createElement("div");
-
-    // dynamicresult.classList.add("dynamicresult");
-
-    // srNo.textContent = "db";
-    // quiz.textContent = q.name;
-    // totalMarks.textContent = q.totalquestion;
-    // obtainedMarks.textContent = "db";
-
-    // dynamicresult.append(srNo, quiz, totalMarks, obtainedMarks);
-    // const result = document.querySelector(".results"); // Select the parent container
-    // result.append(dynamicresult);
+  } else if (entity === "Student") {
+    // const StudentClassCode = document.cookie.match(
+    //   /classCode_cookie=([^;]*)/
+    // )[1];
+    const StudentClassCode = getCookie("Code_cookie");
+    console.log("Class code cookie = ", StudentClassCode);
+    // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
+    // console.log("MAINSCREENQUIZ: ", MAINSCREEN_QUIZZES);
+    fetchQuizzesByEmail(StudentClassCode)
+      .then((result) => {
+        MAINSCREEN_QUIZZES = result;
+        console.log("MAINSCREEN_QUIZZES: ", MAINSCREEN_QUIZZES);
+        MAINSCREEN_QUIZZES.forEach((quiz) => {
+          dynamicResult(quiz);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching quizzes: ", error);
+      });
   }
+
+  // let q = loadLastQuizFromLocalStorage();
+
+  // const newDiv = document.createElement("div");
+  // const newDivquizname = document.createElement("div");
+  // const newDivsubjectname = document.createElement("div");
+  // const img = document.createElement("img");
+
+  // // Set attributes and content
+  // img.src = "images/Frame 251.svg";
+  // newDiv.classList.add("quizbox");
+  // newDivquizname.classList.add("quizname");
+  // newDivsubjectname.classList.add("subject");
+  // newDivquizname.textContent = q.name; // Assuming quiz.name contains the quiz name
+  // newDivsubjectname.textContent = q.subject; // Assuming quiz.subject contains the subject name
+
+  // // Append the children to the newDiv
+  // newDiv.append(img);
+  // newDiv.append(newDivquizname);
+  // newDiv.append(newDivsubjectname);
+
+  // // Append the newDiv to the parent container
+  // const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
+  // parentElement.append(newDiv);
+
+  // --------------------------------------------------------------------------------------------
+
+  // const srNo = document.createElement("p");
+  // const quiz = document.createElement("p");
+  // const totalMarks = document.createElement("p");
+  // const obtainedMarks = document.createElement("p");
+  // const dynamicresult = document.createElement("div");
+
+  // dynamicresult.classList.add("dynamicresult");
+
+  // srNo.textContent = "db";
+  // quiz.textContent = q.name;
+  // totalMarks.textContent = q.totalquestion;
+  // obtainedMarks.textContent = "db";
+
+  // dynamicresult.append(srNo, quiz, totalMarks, obtainedMarks);
+  // const result = document.querySelector(".results"); // Select the parent container
+  // result.append(dynamicresult);
 
   if (window.location.pathname === "/Student_Quiz") {
     // Load the last quiz from local storage
@@ -546,6 +560,28 @@ async function updateAttemptedArray(quiz) {
   } catch (error) {
     console.error("Error updating quiz:", error);
     return null;
+  }
+}
+function dynamicResult(q) {
+  for (let i = 0; i < q.attempted.length; i++) {
+    if (q.attempted) {
+      const email = document.createElement("p");
+      const quiz = document.createElement("p");
+      const totalMarks = document.createElement("p");
+      const obtainedMarks = document.createElement("p");
+      const dynamicresult = document.createElement("div");
+
+      dynamicresult.classList.add("dynamicresult");
+
+      quiz.textContent = q.name;
+      email.textContent = q.attempted[i].email;
+      totalMarks.textContent = q.totalquestion;
+      obtainedMarks.textContent = q.attempted[i].acquiredMarks;
+
+      dynamicresult.append(email, quiz, totalMarks, obtainedMarks);
+      const result = document.querySelector(".results"); // Select the parent container
+      result.append(dynamicresult);
+    }
   }
 }
 function setSessionCookie(name, value) {

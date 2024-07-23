@@ -233,7 +233,6 @@ app.put("/quizzes", async (req, res) => {
   }
 });
 
-
 // app.get("/students", async (req, res) => {
 //   try {
 //     const email = req.query.email;
