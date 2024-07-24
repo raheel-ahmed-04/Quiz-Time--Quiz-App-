@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (window.location.pathname === "/Quizmainscreen") {
     // Load the last quiz from local storage
-    // localStorage.clear();
+    localStorage.clear();
     const entity = document.cookie.match(/Entity_cookie=([^;]*)/)[1];
 
     if (entity === "Teacher") {
@@ -328,7 +328,7 @@ document.addEventListener("submit", (event) => {
         updateAttemptedArray(quiz);
         localStorage.setItem("QuestionNumber", "1");
 
-        // window.location.href = "http://localhost:4000/Quizmainscreen";
+        window.location.href = "http://localhost:4000/Quizmainscreen";
       } else {
         localStorage.setItem("QuestionNumber", Q_no.toString());
         //move to next question
@@ -372,26 +372,84 @@ document.addEventListener("click", (event) => {
     event.target.parentElement.classList.contains("quizbox")
   ) {
     const quizbox = event.target.closest(".quizbox");
-    if (quizbox) {
+    const entity = document.cookie.match(/Entity_cookie=([^;]*)/)[1];
+
+    if (quizbox && entity === "Student") {
       // Find the .quizname element within the closest .quizbox ancestor
       let quizname = quizbox.querySelector(".quizname").textContent;
       console.log(quizname);
       console.log("quizzes = ", MAINSCREEN_QUIZZES);
       if (MAINSCREEN_QUIZZES) {
+        const studentEmail = document.cookie.match(/studentEmail=([^;]*)/)[1];
+        const updatedStudentEmail = decodeURIComponent(studentEmail); // Decoding the email to handle "%40"
+
+        let permissionToAttempt = true;
+        let quizToStore = null;
+
         MAINSCREEN_QUIZZES.forEach((quiz) => {
           if (quiz.name === quizname) {
-            //quiz found now store in session storage
-            console.log("Quiz found Taha Ganfu:", quiz);
-            storeObjectToLastIndex(quiz);
-            window.location.href = "http://localhost:4000/Student_Quiz";
+            if (permissionToAttempt) {
+              for (let i = 0; i < quiz.attempted.length; i++) {
+                if (quiz.attempted[i].email === updatedStudentEmail) {
+                  alert(`You have already attempted the Quiz: ${quiz.name}`);
+                  permissionToAttempt = false;
+                  break;
+                }
+              }
+            }
+            // If the quiz is found and the student has no permission to attempt it
+            if (permissionToAttempt) {
+              quizToStore = quiz;
+            }
           }
         });
+
+        if (permissionToAttempt && quizToStore) {
+          console.log("Quiz found Taha Ganfu:", quizToStore);
+          storeObjectToLastIndex(quizToStore);
+          window.location.href = "http://localhost:4000/Student_Quiz";
+        }
       } else {
         console.log("No quizbox found");
       }
     }
   }
 });
+// if (MAINSCREEN_QUIZZES) {
+//   MAINSCREEN_QUIZZES.forEach((quiz) => {
+//     if (quiz.name === quizname) {
+//       //quiz found now store in session storage
+//       console.log("Quiz found Taha Ganfu:", quiz);
+//       storeObjectToLastIndex(quiz);
+//       window.location.href = "http://localhost:4000/Student_Quiz";
+//     }
+//   });
+// } else {
+//   console.log("No quizbox found");
+// }
+// if (MAINSCREEN_QUIZZES) {
+//   const studentEmail = document.cookie.match(/studentEmail=([^;]*)/)[1];
+//   const updatedStudentEmail = studentEmail.replace("%40", "@");
+//   //check if quiz is already attempted by the student
+//   let permissionToAttempt = true;
+//   MAINSCREEN_QUIZZES.forEach((quiz) => {
+//     if (permissionToAttempt && quiz.name === quizname) {
+//       for (let i = 0; i < quiz.attempted.length; i++) {
+//         if (quiz.attempted[i].email === updatedStudentEmail) {
+//           alert(`You have already attempted the Quiz: ${quiz.name}`);
+//           permissionToAttempt = false;
+//           break;
+//         }}}});
+//   if (permissionToAttempt) {
+//     MAINSCREEN_QUIZZES.forEach((quiz) => {
+//       if (quiz.name === quizname) {
+//         //quiz found now store in session storage
+//         console.log("Quiz found Taha Ganfu:", quiz);
+//         storeObjectToLastIndex(quiz);
+//         window.location.href = "http://localhost:4000/Student_Quiz";
+//       }});}
+// } else {
+//   console.log("No quizbox found");}
 
 function GetQuizContents(QuestionNumber, QuizObject) {
   let Ques = document.querySelector(".Question");
@@ -405,7 +463,7 @@ function GetQuizContents(QuestionNumber, QuizObject) {
 }
 
 function storeObjectToLastIndex(object) {
-  let currentIndex = parseInt(localStorage.getItem("lastIndex"), 10);
+  let currentIndex = parseInt(localStorage.getItem("lastIndex"), 10) || 1;
   localStorage.setItem(`Quiz_${currentIndex - 1}`, JSON.stringify(object));
 }
 
@@ -434,7 +492,7 @@ function loadQuizFromLocalStorage() {
 }
 
 function loadLastQuizFromLocalStorage() {
-  let lastIndex = parseInt(localStorage.getItem("lastIndex"), 10);
+  let lastIndex = parseInt(localStorage.getItem("lastIndex"), 10) || 1;
   lastIndex -= 1;
   if (!isNaN(lastIndex)) {
     let lastQuiz = localStorage.getItem(`Quiz_${lastIndex}`);
