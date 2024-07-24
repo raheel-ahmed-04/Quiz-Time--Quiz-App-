@@ -117,6 +117,7 @@
     border: 1px solid rgb(226, 226, 226);
     padding: 10px;
     border-radius: 5px;
+    cursor:pointer;
 }
 .quizname{
     font-size: 16px;
