@@ -122,6 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // const StudentClassCode = document.cookie.match(
       //   /classCode_cookie=([^;]*)/
       // )[1];
+      // Get the button element
+      const button = document.querySelector(".AddQuiz");
+      // Hide the button
+      button.style.display = "none";
+
       const StudentClassCode = getCookie("Code_cookie");
       console.log("Class code cookie = ", StudentClassCode);
       // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
@@ -139,49 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
   }
-
-  // let q = loadLastQuizFromLocalStorage();
-
-  // const newDiv = document.createElement("div");
-  // const newDivquizname = document.createElement("div");
-  // const newDivsubjectname = document.createElement("div");
-  // const img = document.createElement("img");
-
-  // // Set attributes and content
-  // img.src = "images/Frame 251.svg";
-  // newDiv.classList.add("quizbox");
-  // newDivquizname.classList.add("quizname");
-  // newDivsubjectname.classList.add("subject");
-  // newDivquizname.textContent = q.name; // Assuming quiz.name contains the quiz name
-  // newDivsubjectname.textContent = q.subject; // Assuming quiz.subject contains the subject name
-
-  // // Append the children to the newDiv
-  // newDiv.append(img);
-  // newDiv.append(newDivquizname);
-  // newDiv.append(newDivsubjectname);
-
-  // // Append the newDiv to the parent container
-  // const parentElement = document.querySelector(".dynamicquiz"); // Select the parent container
-  // parentElement.append(newDiv);
-
-  // --------------------------------------------------------------------------------------------
-
-  // const srNo = document.createElement("p");
-  // const quiz = document.createElement("p");
-  // const totalMarks = document.createElement("p");
-  // const obtainedMarks = document.createElement("p");
-  // const dynamicresult = document.createElement("div");
-
-  // dynamicresult.classList.add("dynamicresult");
-
-  // srNo.textContent = "db";
-  // quiz.textContent = q.name;
-  // totalMarks.textContent = q.totalquestion;
-  // obtainedMarks.textContent = "db";
-
-  // dynamicresult.append(srNo, quiz, totalMarks, obtainedMarks);
-  // const result = document.querySelector(".results"); // Select the parent container
-  // result.append(dynamicresult);
 
   if (window.location.pathname === "/Student_Quiz") {
     // Load the last quiz from local storage
@@ -523,23 +485,7 @@ async function sendQuiz(quiz) {
     console.error("Error:", error);
   }
 }
-// async function fetchQuiz() {
-//   try {
-//     const response = await fetch("http://localhost:4000/quizzes");
 
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const quiz = await response.json();
-//     quiz.forEach((quiz) => {
-//       displayquiz(quiz);
-//     });
-//     console.log(quiz);
-//   } catch (error) {
-//     console.error("Error:", error);
-//   }
-// }
 function displayquiz(q) {
   // let newquiz = JSON.parse(q);
   let quiz = Quiz.fromObject(q);
@@ -656,38 +602,5 @@ function getCookie(name) {
   }
   return null;
 }
-// async function findStudentByEmail(email) {
-//   try {
-//     // Make a request to the backend API to find a student by email
-//     const response = await fetch(`http://localhost:4000/students?email=${encodeURIComponent(email)}`);
-
-//     // Check if the response is OK
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     // Parse the JSON data from the response
-//     const data = await response.json();
-
-//     // Check if data is an array and has elements
-//     if (Array.isArray(data) && data.length > 0) {
-//       return data[0]; // Assuming email is unique and we return the first match
-//     } else {
-//       throw new Error("No student found with the given email.");
-//     }
-//   } catch (error) {
-//     console.error("Error finding student:", error);
-//     return null; // Return null if an error occurs
-//   }
-// }
-
-// // Example usage:
-// findStudentByEmail("student1@example.com").then(student => {
-//   if (student) {
-//     console.log("Student found:", student);
-//   } else {
-//     console.log("Student not found.");
-//   }
-// });
 
 // -----------------------------------------------------------------------------
