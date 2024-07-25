@@ -119,9 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("Error fetching quizzes: ", error);
         });
     } else if (entity === "Student") {
-      // const StudentClassCode = document.cookie.match(
-      //   /classCode_cookie=([^;]*)/
-      // )[1];
       // Get the button element
       const button = document.querySelector(".AddQuiz");
       // Hide the button
@@ -129,8 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const StudentClassCode = getCookie("Code_cookie");
       console.log("Class code cookie = ", StudentClassCode);
-      // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
-      // console.log("MAINSCREENQUIZ: ", MAINSCREEN_QUIZZES);
+
       fetchQuizzesByEmail(StudentClassCode)
         .then((result) => {
           MAINSCREEN_QUIZZES = result;
@@ -191,9 +187,6 @@ document.addEventListener("submit", (event) => {
       totalquestions.value,
       decodedClassCode
     );
-    // let quiz = new Quiz(quizname.value, subject.value, totalquestions.value);
-    // ------------------------------------------------------------------------
-    // sendQuiz(quiz);
     // ------------------------------------------------------------------------
     storeObjecttoLS(quiz);
     window.location.href = "http://localhost:4000/Quiz_Creation";
@@ -316,14 +309,6 @@ document.addEventListener("submit", (event) => {
 
     setSessionCookie("Code_cookie", StudentClassCode);
     window.location.href = "http://localhost:4000/Quizmainscreen";
-    // if (window.location.pathname === "/Quizmainscreen") {
-    // MAINSCREEN_QUIZZES = fetchQuizzesByEmail(StudentClassCode);
-    // console.log("MAINSCREENQUIZ: ", MAINSCREEN_QUIZZES);
-    // sessionStorage.setItem(
-    //   "MAINSCREEN_QUIZZES",
-    //   JSON.stringify(MAINSCREEN_QUIZZES)
-    // );
-    // }
   }
 });
 
@@ -359,7 +344,7 @@ document.addEventListener("click", (event) => {
                 }
               }
             }
-            // If the quiz is found and the student has no permission to attempt it
+            // If the quiz is found then the student has no permission to attempt it
             if (permissionToAttempt) {
               quizToStore = quiz;
             }
@@ -412,17 +397,6 @@ document.addEventListener("click", (event) => {
 //       }});}
 // } else {
 //   console.log("No quizbox found");}
-
-function GetQuizContents(QuestionNumber, QuizObject) {
-  let Ques = document.querySelector(".Question");
-  let option1 = document.querySelector("#option1");
-  let option2 = document.querySelector("#option2");
-  let option3 = document.querySelector("#option3");
-  let option4 = document.querySelector("#option4");
-  let correct_option = document.querySelector("#correct_option");
-
-  // Ques.textContent = QuizObject.Ques
-}
 
 function storeObjectToLastIndex(object) {
   let currentIndex = parseInt(localStorage.getItem("lastIndex"), 10) || 1;
