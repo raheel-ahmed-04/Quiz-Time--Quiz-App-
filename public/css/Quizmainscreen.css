@@ -11,6 +11,7 @@
     margin: 15px;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 .main{
     border-top: 1px solid rgb(234, 234, 234);
@@ -80,7 +81,7 @@
     width: 120px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow:ellipsis;
 }
 #logo button{
     padding: 5px 40px;
