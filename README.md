@@ -36,14 +36,21 @@ experience for both teachers and students.
 bcrypt: 
     Used to hash passwords for secure authentication.
 ## Key Feature
-   Teachers
-        ->Effortlessly create and post quizzes.
-        ->Manage quizzes and view students' results.
-    Students
-        ->Join classes using a unique class code.
-        ->Take quizzes assigned by teachers.
-        ->View results with scores and emails listed.
-        ->Enhanced User Experience
+Teachers
+
+ ->Effortlessly create and post quizzes.
+ 
+ ->Manage quizzes and view students' results.
+ 
+Students
+
+ ->Join classes using a unique class code.
+ 
+ ->Take quizzes assigned by teachers.
+ 
+ ->View results with scores and emails listed.
+ 
+ ->Enhanced User Experience
 
 ## Contact
 For any questions or feedback, please contact:
